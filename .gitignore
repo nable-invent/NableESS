@@ -134,4 +134,4 @@ dmypy.json
 /master/migrtaions/*
 
 
-/static/
+# /static/
