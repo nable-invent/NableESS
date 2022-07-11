@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-    <title>:: Nexa :: Index</title>
+    <title>:: CRM :: Index</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="static/assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -17,6 +17,8 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="static/assets/css/main.css">
     <link rel="stylesheet" href="static/assets/css/color_skins.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="theme-orange">
@@ -235,12 +237,12 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active open"><a href="javascript:void(0);" class="menu-toggle"><i
-                            class="zmdi zmdi-home"></i><span>Dashboard</span></a>
+                <li class="active open"><a href="javascript:void(0);" class="menu-toggle">
+                    <i class="zmdi zmdi-home"></i><span>Dashboard</span></a>
                 </li>
                 <li><a href="/"><i class="zmdi zmdi-inbox zmdi-hc-fw"></i><span>Contacts</span>
                     </a></li>
-                <li><a href="/"><i class="zmdi zmdi-view-quilt"></i><span>Pipeline</span> </a></li>
+                <li><a href="{% url 'pipeline' %}"><i class="zmdi zmdi-view-quilt"></i><span>Pipeline</span> </a></li>
             </ul>
         </div>
         <!-- #Menu -->
@@ -533,7 +535,7 @@
                             <div class="chat-info">
                                 <a class="name" href="javascript:void(0);">Alexander</a>
                                 <span class="datetime">6:12</span>
-                                <span class="message">Hello, John </span>
+                                <span class="message">Hello, John</span>
                             </div>
                         </li>
                         <li class="right">

@@ -130,8 +130,8 @@ dmypy.json
 
 
 .envbox
-/accounts/migrtaions/*
-/master/migrtaions/*
+/accounts/migrations/*
+/master/migrations/*
 
 
-# /static/
+/static/
