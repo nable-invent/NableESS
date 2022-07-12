@@ -53,13 +53,13 @@ def save_contact(request):
         website = request.POST.get('website') 
         title = request.POST.get('title') 
         tags = request.POST.get('tags') 
-        image = request.POST.get('image')
+        image = request.FILES.get('image')
         user_type = request.POST.get('user_type',False)
         print(user_type)
-        if company_name == 'Select Company':
-            return render(request,'contact.html',{"error":"Please Select Company Name","data1":Company.objects.all()})
-        else:
-            if user_type == "indivisual":
+        if user_type == "indivisual":
+            if company_name == 'Select Company':
+                return render(request,'contact.html',{"error":"Please Select Company Name","data1":Company.objects.all()})
+            else:
                 var = Company.objects.get(id=company_name)
                 #form = IndividualForm(request.POST,request.FILES,None)
                 print(name,company_name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,title,tags,image)
@@ -72,15 +72,15 @@ def save_contact(request):
                     print("contact data is saved")
                 except ValueError:
                     render(request,'contact.html',{"error":"Phone and Mobile Number Can't Empty","data1":Company.objects.all()})
-            elif user_type == "company":
-                print(name,company_name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,title,tags)
-                try:
-                    Company(title=name,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,country=country,
-                    zip_code=zip,phone=phone,mobile=mobile,email=email,website=website,tags=tags,company_image=image).save()
-                    Contact(cmp_title=name,cmp_tax_id=tax_id,cmp_address_street_1=street1,cmp_address_street_2=street2,cmp_city=city,cmp_state=state,cmp_country=country,
-                    cmp_zip_code=zip,cmp_phone=phone,cmp_mobile=mobile,cmp_email=email,cmp_website=website,cmp_tags=tags,company_image=image).save()
-                except ValueError:
-                    return render(request, 'contact.html',{"error":"Phone and Mobile Number Can't Empty","data1":Company.objects.all()})   
+        elif user_type == "company":
+            print(name,company_name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,title,tags)
+            try:
+                Company(title=name,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,country=country,
+                zip_code=zip,phone=phone,mobile=mobile,email=email,website=website,tags=tags,company_image=image).save()
+                Contact(cmp_title=name,cmp_tax_id=tax_id,cmp_address_street_1=street1,cmp_address_street_2=street2,cmp_city=city,cmp_state=state,cmp_country=country,
+                cmp_zip_code=zip,cmp_phone=phone,cmp_mobile=mobile,cmp_email=email,cmp_website=website,cmp_tags=tags,company_image=image).save()
+            except ValueError:
+                return render(request, 'contact.html',{"error":"Phone and Mobile Number Can't Empty","data1":Company.objects.all()})   
     return redirect('contact')
 
 
@@ -124,3 +124,21 @@ def get_contact_details(request):
     print(res)
     ser = ContactSerializer(res)
     return JsonResponse(ser.data)
+
+
+def contact_list(request):
+    contact = Contact.objects.all()
+    context ={
+        'data':contact,
+    }
+    return render(request, 'contact_list.html', context)
+
+
+def contact_edit(request):
+    id = request.GET.get("id")
+    contact = Contact.objects.get(id=id)
+    print("CONTACT",contact)
+    context ={
+        'data':contact,
+    }
+    return render(request, 'contact_edit.html',context)

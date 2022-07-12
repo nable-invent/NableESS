@@ -24,7 +24,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', contact, name="contact"),
+    path('', contact_list, name="contact_list"),
+    path('contact_edit', contact_edit, name="contact_edit"),
+    path('contact', contact, name="contact"),
     path('dash', index, name="index"),
     path('save_contact', save_contact, name="save_contact"),
     path('pipeline',pipeline,name="pipeline"),

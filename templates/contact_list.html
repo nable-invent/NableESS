@@ -1,0 +1,59 @@
+{% extends 'side_bar.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <h3>Conatcts</h3>
+</div>
+<div class="m-3">
+    <a href="{% url 'contact' %}"><button class="btn btn-primary">Create</button></a>
+</div>
+<div class="col-md-12">
+    <div class="row">
+
+        {% for i in data %}
+        <a href="{% url 'contact_edit'  %}?id={{i.id}}">
+            <div class="card mt-2 m-2" style="width: 22rem;display: flex; flex-direction: row;">
+
+                <div>
+                    {% if i.individual_image %}
+                    <img src="{{i.individual_image}}" alt="Card image cap" height="200" width="150">
+                    {% else %}
+                    {% if i.cmp_title == none %}
+                    <img src="/static/assets/images/person.png" alt="Card image cap" height="200" width="150">
+                    {% else %}
+                    <img src="/static/assets/images/company.png" alt="Card image cap" height="200" width="150">
+                    {% endif %}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if i.cmp_title == none %}
+                    <p class="card-text font-weight-bold ml-3 m-1">{{i.name}}</p>
+                    {% else %}
+                    {% if i.name == none %}
+                    <p class="card-text font-weight-bold ml-3 m-1">{{i.name|default:""}}</p>
+                    {% else %}
+                    <p class="card-text font-weight-bold ml-3 m-1"> {{i.cmp_title|default:""}},{{i.name|default:""}}</p>
+                    {% endif %}
+                    {% endif %}
+                    {% if i.cmp_title == none %}
+                    <p class="card-text ml-3 m-1 ">{{i.job_position|default:""}}</p>
+                    {% else %}
+                    {% if i.name == none %}
+                    <p class="card-text ml-3 m-1 ">{{i.cmp_title|default:""}}</p>
+                    {% else %}
+                    <p class="card-text ml-3 m-1 ">{{i.job_position|default:""}} at {{i.cmp_title|default:""}}</p>
+                    {% endif %}
+                    {% endif %}
+                    <p class="card-text ml-3 m-1 ">{{i.email|default:""}}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

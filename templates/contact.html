@@ -18,15 +18,15 @@
             </div> -->
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <!-- Input -->
-    
+
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        
+
                         <!-- <ul class="header-dropdown m-r--5">
                             <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
                                     data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -40,113 +40,125 @@
                         </ul> -->
                         {% if error %}
                         <h5 style="text-align:center; color:darkorchid"> {{error}}</h5>
-                        {% endif %}    
+                        {% endif %}
                     </div>
                     <div class="body">
                         <h2 class="card-inside-title"> Contact </h2>
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <!-- input form started-->
-                                <form action="{% url 'save_contact'%}" method="post" enctype="multipart/form-data" autocomplete="off"> 
+                                <form action="{% url 'save_contact'%}" method="post" enctype="multipart/form-data"
+                                    autocomplete="off">
                                     {% csrf_token %}
-                                <div class="form-group">
-                                    <div class="form-line" style="display:inline-flex"> 
+                                    <div class="form-group">
+                                        <div class="form-line" style="display:inline-flex">
 
-                                        <input type="radio" id="html" name="user_type" value="indivisual" checked onclick="show()">
-                                        <label for="html" class="mr-4">Individual </label><br>
-                                        <input type="radio" id="css" name="user_type" value="company" onclick="return hide()">
-                                        <label for="css"> Company </label><br>
-                                    </div>
-                                  
-                                </div>
-                                
-                                <div class="form-group">
-                                    <div class="form-line" style="display:inline-flex">
-                                        <input type="text" class="form-control" placeholder="e.g. Branom Freeman *" name="name" required/>
-                                    </div>
-                                 
-                                    <div class="form-line" id="company" style="display:inline-flex">
-                                        <div class="form-group mb-0">
-                                            <select name='company_name' class="form-control" id="comp">
-                                                <option> Select Company </option>
-                                                {% for i in data1 %}
-                                                <option value="{{i.id}}"> {{i.title}}</option>
-                                                {% endfor %}
-                                            </select>                       
+                                            <input type="radio" id="html" name="user_type" value="indivisual" checked
+                                                onclick="show()">
+                                            <label for="html" class="mr-4">Individual </label><br>
+                                            <input type="radio" id="css" name="user_type" value="company"
+                                                onclick="return hide()">
+                                            <label for="css"> Company </label><br>
                                         </div>
+
                                     </div>
-                                </div>
-                                <h2 class="card-inside-title">Address</h2>
-                                <div style="display:inline-flex">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="street1" placeholder="Street 1"  name="address_street_1"/>
+
+                                    <div class="form-group">
+                                        <div class="form-line" style="display:inline-flex">
+                                            <input type="text" class="form-control" placeholder="e.g. Branom Freeman *"
+                                                name="name" required />
+                                        </div>
+
+                                        <div class="form-line" id="company" style="display:inline-flex">
+                                            <div class="form-group mb-0">
+                                                <select name='company_name' class="form-control" id="comp">
+                                                    <option> Select Company </option>
+                                                    {% for i in data1 %}
+                                                    <option value="{{i.id}}"> {{i.title}}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" placeholder="Street 2" id="street2" name="address_street_2"/>
+                                    <h2 class="card-inside-title">Address</h2>
+                                    <div style="display:inline-flex">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="street1"
+                                                        placeholder="Street 1" name="address_street_1" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Street 2"
+                                                        id="street2" name="address_street_2" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div style="display:inline-flex">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="city" placeholder="City" name="city"/>
+                                    <div style="display:inline-flex">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="city" placeholder="City"
+                                                        name="city" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="state"
+                                                        placeholder="State" name="state" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="zip_code"
+                                                        placeholder="ZIP" name="zip_code" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-lg">
                                             <div class="form-line">
-                                                <input type="text" class="form-control" id="state" placeholder="State" name="state"/>
+                                                <input type="text" class="form-control" id="country"
+                                                    placeholder="Country" name="country" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
+                                    <h2 class="card-inside-title">TAX ID</h2>
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-lg">
                                             <div class="form-line">
-                                                <input type="text" class="form-control" id="zip_code" placeholder="ZIP" name="zip_code" />
+                                                <input type="text" class="form-control" id="tax_id"
+                                                    placeholder="e.g. BE0477472701" name="tax_id" />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                        
-                                <div class="col-sm-12">
-                                    <div class="form-group form-group-lg">
-                                        <div class="form-line">
-                                            <input type="text" class="form-control" id="country" placeholder="Country" name="country"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h2 class="card-inside-title">TAX ID</h2>
-                                <div class="col-sm-12">
-                                    <div class="form-group form-group-lg">
-                                        <div class="form-line">
-                                            <input type="text" class="form-control" id="tax_id" placeholder="e.g. BE0477472701" name="tax_id"/>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="row clearfix col-sm-6">
-                                
-                                <div  id="job_position" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+
+                                <div id="job_position" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold">Job Postion :</label>
                                 </div>
-                                <div  id="job" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                <div id="job" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
-                                        <div class="form-line" >
-                                            <input type="text" class="form-control" placeholder="e.g. Sales Derector" name="job_position">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="e.g. Sales Derector"
+                                                name="job_position">
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold"> Phone :</label>
                                 </div>
@@ -163,7 +175,7 @@
                                 <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="tel"  class="form-control" id="mobile" name="mobile">
+                                            <input type="tel" class="form-control" id="mobile" name="mobile">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +195,8 @@
                                 <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="url" class="form-control" placeholder="e.g. https://www.odoo.com" id="website" name="website">
+                                            <input type="url" class="form-control"
+                                                placeholder="e.g. https://www.odoo.com" id="website" name="website">
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +206,8 @@
                                 <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                           <input type="text" class="form-control" placeholder="e.g. Mister" name="title">
+                                            <input type="text" class="form-control" placeholder="e.g. Mister"
+                                                name="title">
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +217,8 @@
                                 <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                           <input type="text" class="form-control" placeholder="" id="tags" name="tags">
+                                            <input type="text" class="form-control" placeholder="" id="tags"
+                                                name="tags">
                                         </div>
                                     </div>
                                 </div>
@@ -218,19 +233,20 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div style="text-align: center;">
-                        <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                        </form>
-                        <a href="{% url 'contact' %}"> 
-                        <button type="cancel" class="btn btn-outline-primary" onclick="return confirm('Are You Sure to Discard')">Discard</button>
-                        </a>   
+                            <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                            </form>
+                            <a href="{% url 'contact' %}">
+                                <button type="cancel" class="btn btn-outline-primary"
+                                    onclick="return confirm('Are You Sure to Discard')">Discard</button>
+                            </a>
                         </div>
-                        
+
                         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                         <script type="text/javascript">
-                               function hide(){
+                            function hide() {
                                 document.getElementById('company').style.display = 'none';
                                 document.getElementById('job_position').style.display = 'none';
                                 document.getElementById('title').style.display = 'none';
@@ -244,51 +260,52 @@
                                 document.getElementById('zip_code').value = "";
                                 document.getElementById('tax_id').value = "";
 
-                               }
-                               function show(){
+                            }
+                            function show() {
                                 document.getElementById('company').style.display = 'block';
                                 document.getElementById('job_position').style.display = 'block';
                                 document.getElementById('title').style.display = 'block';
                                 document.getElementById('job').style.display = 'block';
                                 document.getElementById('title1').style.display = 'block';
 
-                               }  
+                            }
 
 
-                        let source = document.querySelector('#comp');
-                        let target = document.querySelector('#comp1');
-                        source.addEventListener('change', function () {
-                        // target.textContent = this.value;
-                        value_1 = this.value
-                        console.log("VALUE", value_1)
-                        $.ajax({
-                        url: "http://127.0.0.1:8000/get_comp_details/",
-                        method: "GET",
-                        data: { value_1: value_1 },
-                        dataType: "json",
-                        })
-                         .done(function (data) { 
-                           //alert(data.phone)
-                        //    for (let i = 0; i < data.vat_type.length; i++) {
-                        //    $('#id_familymember_set-0-tax_type').val(data.vat_type[i].name);
-                        //    }
-                        //     let text = data.vat_percentage
-                        //     const myArray = text.split(".");
-                            $('#street1').val(data.address_street_1);
-                            $('#street2').val(data.address_street_2);
-                            $('#city').val(data.city);
-                            $('#state').val(data.state);
-                            $('#country').val(data.country);
-                            $('#zip_code').val(data.zip_code);
-                            $('#tax_id').val(data.tax_id);
-                            // $('#phone').val(data.phone);
-                            // $('#mobile').val(data.mobile);
-                            // $('#email').val(data.email);
-                            // $('#website').val(data.website);
-                            // $('#tags').val(data.tags);
-                          });
+                            let source = document.querySelector('#comp');
+                            let target = document.querySelector('#comp1');
+                            source.addEventListener('change', function () {
+                                // target.textContent = this.value;
+                                value_1 = this.value
+                                console.log("VALUE", value_1)
+                                $.ajax({
+                                    url: "/get_comp_details/",
+                                    method: "GET",
+                                    data: { value_1: value_1 },
+                                    dataType: "json",
+                                })
+                                    .done(function (data) {
+                                        console.log("AMIYT", data)
+                                        //alert(data.phone)
+                                        //    for (let i = 0; i < data.vat_type.length; i++) {
+                                        //    $('#id_familymember_set-0-tax_type').val(data.vat_type[i].name);
+                                        //    }
+                                        //     let text = data.vat_percentage
+                                        //     const myArray = text.split(".");
+                                        $('#street1').val(data.address_street_1);
+                                        $('#street2').val(data.address_street_2);
+                                        $('#city').val(data.city);
+                                        $('#state').val(data.state);
+                                        $('#country').val(data.country);
+                                        $('#zip_code').val(data.zip_code);
+                                        $('#tax_id').val(data.tax_id);
+                                        // $('#phone').val(data.phone);
+                                        // $('#mobile').val(data.mobile);
+                                        // $('#email').val(data.email);
+                                        // $('#website').val(data.website);
+                                        // $('#tags').val(data.tags);
+                                    });
 
-                        });
+                            });
 
                         // function ajaxrequest(input_id,req_url,div_id)
                         // {
@@ -325,10 +342,10 @@
                         //     }
                         // }
                         </script>
-                        
 
-                        
-                   <!-- <h2 class="card-inside-title">Floating Label Examples</h2>
+
+
+                        <!-- <h2 class="card-inside-title">Floating Label Examples</h2>
                         <div class="row clearfix">
                             <div class="col-sm-12">
                                 <div class="form-group form-float">
@@ -393,9 +410,9 @@
 
 
 
-        <!-- #END# Input -->
-        <!-- Textarea -->
-        <!-- <div class="row clearfix">
+                        <!-- #END# Input -->
+                        <!-- Textarea -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -437,9 +454,9 @@
                 </div>
             </div>
         </div> -->
-        <!-- #END# Textarea -->
-        <!-- Select -->
-        <!-- <div class="row clearfix">
+                        <!-- #END# Textarea -->
+                        <!-- Select -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -484,9 +501,9 @@
                 </div>
             </div>
         </div> -->
-        <!-- #END# Select -->
-        <!-- Checkbox -->
-        <!-- <div class="row clearfix">
+                        <!-- #END# Select -->
+                        <!-- Checkbox -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -606,9 +623,9 @@
                 </div>
             </div>
         </div> -->
-        <!-- #END# Checkbox -->
-        <!-- Radio -->
-        <!-- <div class="row clearfix">
+                        <!-- #END# Checkbox -->
+                        <!-- Radio -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -735,9 +752,9 @@
                 </div>
             </div>
         </div> -->
-        <!-- #END# Radio -->
-        <!-- Switch Button -->
-        <!-- <div class="row clearfix">
+                        <!-- #END# Radio -->
+                        <!-- Switch Button -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -940,9 +957,9 @@
                 </div>
             </div>
         </div> -->
-        <!--#END# Switch Button -->
-        <!--DateTime Picker -->
-        <!-- <div class="row clearfix">
+                        <!--#END# Switch Button -->
+                        <!--DateTime Picker -->
+                        <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -993,7 +1010,7 @@
                 </div>
             </div>
         </div> -->
-        <!--#END# DateTime Picker -->
-    </div>
+                        <!--#END# DateTime Picker -->
+                    </div>
 </section>
 {% endblock %}
