@@ -63,14 +63,14 @@
                         
                         {% if error %}
                         <h5 style="text-align:center; color:darkorchid"> {{error}}</h5>
-                        {% endif %}    
+                        {% endif %}     
                     </div>
                     <div class="body">
                         <h2 class="card-inside-title" style="padding-bottom: 2rem;"> Pipeline </h2>
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <!-- input form started-->
-                                <form action="{% url 'save_pipeline' %}" method="post" enctype="multipart/form-data" autocomplete="off"> 
+                                <form action="{% url 'save_pipeline' %}" onsubmit="comp_check()" method="post" enctype="multipart/form-data" autocomplete="off"> 
                                     {% csrf_token %}
                                 
                                 <div class="form-group">
@@ -79,7 +79,7 @@
                                         <div class="form-group mb-0">
 
                                             <select name='contact_id' class="form-control" id="comp">
-                                                <option> </option>
+                                                <option value="Select">Select</option>
                                                 {% for i in data %}
                                                     {% if i.company_name == None %}
                                                     <option value="{{i.id}}"> {{i}} </option>
@@ -131,7 +131,7 @@
                         <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
                         </form>
                         <a href=""> 
-                        <button type="cancel" class="btn btn-outline-primary">Edit</button>
+                        <button type="cancel" class="btn btn-outline-primary">Discard</button>
                         </a>   
                         </div>
                         
@@ -187,6 +187,18 @@
                         // // some processing
                         // }
                     });
+
+                    function comp_check(){
+                        var company = document.getElementsById('comp');
+                        alert(company)
+                        if(company.value === 'Select')
+                            {
+                                comp.setCustomValidity("Select Company");
+                            }
+                        else{
+                                comp.setCustomValidity('');
+                        }    
+                    }
 
 
                      </script>
