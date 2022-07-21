@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -51,6 +52,21 @@ class GetContact(APIView):
         except Contact.DoesNotExist:
             message = {"error":"Invalid Contact"}
             return Response(message,status=status.HTTP_404_NOT_FOUND)
+
+
+class UpdateContact(APIView):
+    def put(self,request,id):
+        try:
+            res = Contact.objects.get(id=id)
+            contact = ContactSerializers(res,request.data,partial=True)
+            if contact.is_valid():
+                contact.save()
+                return Response(contact.data,status=status.HTTP_201_CREATED)
+            else:
+                return Response(contact.errors,status=status.HTTP_404_NOT_FOUND)
+        except Contact.DoesNotExist:
+            message = {"error":"Invalid Contact"}
+            return Response(message,status=status.HTTP_404_NOT_FOUND)   
 
 
 class DeleteContact(APIView):
