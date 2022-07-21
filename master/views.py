@@ -103,9 +103,9 @@ def get_comp_details(request):
     return JsonResponse(ser.data)
 
 
-def pipeline(request):
+def pipeline_add(request):
     data = Contact.objects.all()
-    return render(request,'pipeline.html',{"data":Contact.objects.all()})
+    return render(request,'pipeline_add.html',{"data":Contact.objects.all()})
 
 
 def save_pipeline(request):
@@ -117,14 +117,14 @@ def save_pipeline(request):
     rating = request.POST.get('rating3')
     print(contact_id,opportunity,email,phone,revenue,rating)
     if contact_id == 'Select':
-        return render(request,'pipeline.html',{"error":"Please select Organization/Contact","data":Contact.objects.all()})
+        return render(request,'pipeline_add.html',{"error":"Please select Organization/Contact","data":Contact.objects.all()})
     else: 
         try:
             c_id = Contact.objects.get(id=contact_id)
             Pipeline(contact=c_id,opportunity=opportunity,email=email,phone=phone,expected_revenue=revenue,rating=rating).save()
         except ValueError:
-            return render(request,"pipeline.html",{"error":"Invalid Expected Revenue","data":Contact.objects.all()})
-    return redirect('pipeline')
+            return render(request,"pipeline_add.html",{"error":"Invalid Expected Revenue","data":Contact.objects.all()})
+    return redirect('pipeline_add')
 
 
 def get_contact_details(request):
@@ -316,3 +316,9 @@ def delete_contact(request):
         Contact.objects.filter(id=id).delete()
         print("Contact Delete")
     return redirect('contact_list') 
+def pipeline(request):
+    pipeline = Pipeline.objects.all()
+    context = {
+        'data':pipeline,
+    }
+    return render(request, 'pipeline.html', context)

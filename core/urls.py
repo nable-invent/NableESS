@@ -33,6 +33,7 @@ urlpatterns = [
     path('update_contact', update_contact, name="update_contact"),
     path('delete_contact', delete_contact, name="delete_contact"),
     path('pipeline',pipeline,name="pipeline"),
+    path('pipeline_add',pipeline_add,name="pipeline_add"),
     path('get_comp_details/', get_comp_details, name="get_comp_details"),
     path('get_contact_details/',get_contact_details, name="get_contact_details"),
     path('save_pipeline',save_pipeline, name="save_pipeline"),
