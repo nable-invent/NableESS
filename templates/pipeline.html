@@ -128,10 +128,9 @@
                                                     <a href="#1" title="Give 1 star" data-value="1">★</a>
                                                     <input type="hidden" name="rating3" id="rating4">
                                                 </div>
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="street1" placeholder=""
-                                                        name="" readonly />
-                                                </div>
+                                                <!-- <div class="form-line"> -->
+                                                    <!-- <input type="text" class="form-control" id="street1" placeholder="" name="" readonly /> -->
+                                                <!-- </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -171,12 +170,12 @@
                                         //     let text = data.vat_percentage
                                         //     const myArray = text.split(".")
                                         if (data.company_name == null) {
-                                            $('#name').val(data.cmp_title);
+                                            $('#name').val(data.cmp_title+'`s Opportunity');
                                             $('#email').val(data.cmp_email);
                                             $('#phone').val(data.cmp_phone);
                                         }
                                         else {
-                                            $('#name').val(data.company_name.title);
+                                            $('#name').val(data.name+'`s Opportunity');
                                             $('#email').val(data.email);
                                             $('#phone').val(data.phone);
                                         }

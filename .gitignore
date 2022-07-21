@@ -132,6 +132,7 @@ dmypy.json
 .envbox
 /accounts/migrations/*
 /master/migrations/*
+/mobile_api/migrations/*
 
 
 /static/

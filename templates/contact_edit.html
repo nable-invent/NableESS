@@ -1,7 +1,6 @@
 {% extends 'side_bar.html' %}
 {% load static %}
 {% block content %}
-{{data}}
 <section class="contet col-md-8">
     <div class="block-header">
         <div class="row">
@@ -10,9 +9,10 @@
                     <small class="text-muted"> Welcome to Nable CRM </small>
                 </h2>
             </div>
-
+            
         </div>
     </div>
+
     <div class="container-fluid">
         <!-- Input -->
 
@@ -20,8 +20,16 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
+                        {% if data.individual_image %} 
+                        <img src="{{data.individual_image.url|default:''}}" alt="Card image cap" height="50" width="50">
+                        {% else %}
+                        {% if data.company_image %} 
+                        <img src="{{data.company_image.url|default:''}}" alt="Card image cap" height="50" width="50">
+                        {% endif %} 
+                        {% endif %}
+                        
                         {% if error %}
-                        <h5 style="text-align:center; color:darkorchid"> {{error}}</h5>
+                        <h5 style="text-align:center; color:darkorchid">{{error}}</h5>
                         {% endif %}
                     </div>
                     <div class="body">
@@ -29,38 +37,52 @@
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <!-- input form started-->
-                                <form action="{% url 'save_contact'%}" method="post" enctype="multipart/form-data"
-                                    autocomplete="off">
+                                <form action="{% url 'update_contact' %}?id={{data.id}}" method="post" enctype="multipart/form-data" autocomplete="off">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <div class="form-line" style="display:inline-flex">
-
-                                            <input type="radio" id="html" name="user_type" value="indivisual" checked
-                                                onclick="show()">
+                                            {% if data.cmp_title == none %}
+                                            <input type="radio" id="html" name="user_type" value="indivisual" checked onclick="show()">
                                             <label for="html" class="mr-4">Individual </label><br>
-                                            <input type="radio" id="css" name="user_type" value="company"
-                                                onclick="return hide()">
+                                            <input type="radio" id="css" name="user_type" value="company" onclick="return hide()">
                                             <label for="css"> Company </label><br>
+                                            {% else %}
+                                            <input type="radio" id="html" name="user_type" value="indivisual" onclick="show()">
+                                            <label for="html" class="mr-4">Individual </label><br>
+                                            <input type="radio" id="css" name="user_type" value="company" checked onclick="return hide()">
+                                            <label for="css"> Company </label><br>
+                                            {% endif %}
                                         </div>
-
                                     </div>
 
                                     <div class="form-group">
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="text" class="form-control" placeholder="e.g. Branom Freeman *"
-                                                name="name" required />
+                                            <input type="text" class="form-control" placeholder="e.g. Branom Freeman *" value="{{data.name|default:''}}{{data.cmp_title|default:''}}" name="name" required autofocus autocapitalize="on | sentences"/>
                                         </div>
 
+                                        {% if data.cmp_title == none %}
                                         <div class="form-line" id="company" style="display:inline-flex">
                                             <div class="form-group mb-0">
                                                 <select name='company_name' class="form-control" id="comp">
-                                                    <option> Select Company </option>
+                                                    <!-- <option value="{{data.company_name.id}}"> {{data.company_name}} </option>  -->
                                                     {% for i in data1 %}
-                                                    <option value="{{i.id}}"> {{i.title}}</option>
+                                                    <option value="{{i.id}}" {% if data.company_name.id == i.id %} selected {% endif %}>{{i.title}} </option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
                                         </div>
+                                        {% else %}
+                                        <div class="form-line d-{{var}}" id="company" style="display:inline-flex">
+                                            <div class="form-group mb-0">
+                                                <select name='company_name' class="form-control" id="comp">
+                                                    <option> Select Company </option>
+                                                    {% for i in data1 %}
+                                                    <option value="{{i.id}}">{{i.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                     <h2 class="card-inside-title">Address</h2>
                                     <div style="display:inline-flex">
@@ -68,7 +90,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="street1"
-                                                        placeholder="Street 1" name="address_street_1" />
+                                                       value="{{data.cmp_address_street_1|default:''}}{{data.address_street_1|default:''}}" placeholder="Street 1" name="address_street_1" />
                                                 </div>
                                             </div>
                                         </div>
@@ -76,7 +98,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" placeholder="Street 2"
-                                                        id="street2" name="address_street_2" />
+                                                       value="{{data.cmp_address_street_2|default:''}}{{data.address_street_2|default:''}}" id="street2" name="address_street_2" />
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +108,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="city" placeholder="City"
-                                                        name="city" />
+                                                        value="{{data.cmp_city|default:''}}{{data.city|default:''}}" name="city" />
                                                 </div>
                                             </div>
                                         </div>
@@ -94,7 +116,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="state"
-                                                        placeholder="State" name="state" />
+                                                    value="{{data.cmp_state|default:''}}{{data.state|default:''}}" placeholder="State" name="state"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,7 +124,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="zip_code"
-                                                        placeholder="ZIP" name="zip_code" />
+                                                    value="{{data.cmp_zip_code|default:''}}{{data.zip_code|default:''}}" placeholder="ZIP" name="zip_code" />
                                                 </div>
                                             </div>
                                         </div>
@@ -112,7 +134,7 @@
                                         <div class="form-group form-group-lg">
                                             <div class="form-line">
                                                 <input type="text" class="form-control" id="country"
-                                                    placeholder="Country" name="country" />
+                                                value="{{data.cmp_country|default:''}}{{data.country|default:''}}" placeholder="Country" name="country" />
                                             </div>
                                         </div>
                                     </div>
@@ -121,25 +143,38 @@
                                         <div class="form-group form-group-lg">
                                             <div class="form-line">
                                                 <input type="text" class="form-control" id="tax_id"
-                                                    placeholder="e.g. BE0477472701" name="tax_id" />
+                                                value="{{data.cmp_tax_id|default:''}}{{data.tax_id|default:''}}" placeholder="e.g. BE0477472701" name="tax_id" />
                                             </div>
                                         </div>
                                     </div>
                             </div>
 
                             <div class="row clearfix col-sm-6">
-
+                                {% if data.cmp_title == none %}
                                 <div id="job_position" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold">Job Postion :</label>
                                 </div>
                                 <div id="job" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="e.g. Sales Derector"
+                                            <input type="text" class="form-control" placeholder="e.g. Sales Director"
+                                               value="{{data.job_position}}" name="job_position">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div id="job_position" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label d-none">
+                                    <label for="email_address_2" style="font-weight:bold">Job Postion :</label>
+                                </div>
+                                <div id="job" class="col-lg-8 col-md-6 col-sm-4 col-xs-7 d-none">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="e.g. Sales Director"
                                                 name="job_position">
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
 
                                 <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold"> Phone :</label>
@@ -147,7 +182,7 @@
                                 <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="phone" name="phone">
+                                            <input type="text" class="form-control" id="phone" value="{{data.phone|default:''}}{{data.cmp_phone|default:''}}" name="phone">
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +192,7 @@
                                 <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="tel" class="form-control" id="mobile" name="mobile">
+                                            <input type="tel" class="form-control" id="mobile" value="{{data.mobile|default:''}}{{data.cmp_mobile|default:''}}" name="mobile">
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +202,7 @@
                                 <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="email" class="form-control" id="email" name="email">
+                                            <input type="email" class="form-control" id="email" value="{{data.email|default:''}}{{data.cmp_email|default:''}}" name="email">
                                         </div>
                                     </div>
                                 </div>
@@ -178,29 +213,49 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="url" class="form-control"
-                                                placeholder="e.g. https://www.odoo.com" id="website" name="website">
+                                                placeholder="e.g. https://www.odoo.com" id="website" value="{{data.website|default:''}}{{data.cmp_website|default:''}}" name="website">
                                         </div>
                                     </div>
                                 </div>
+                                {% if data.cmp_title == none %}
                                 <div id="title" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold">Title :</label>
                                 </div>
                                 <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="e.g. Mister"
-                                                name="title">
+                                            <!-- <select name="title" class="form-control">
+                                                <option> Select </option>
+                                                <option value="Doctor">Doctor</option>
+                                                <option value="Madam">Madam</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Mister">Mister</option>
+                                                <option value="Professor">Professor</option>
+                                            </select> -->
+                                            <input type="text" class="form-control" id="t" placeholder="e.g. Mister" value="{{data.title}}" name="title">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="title" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
-                                    <label for="email_address_2" style="font-weight:bold">Tags :</label>
+                                {% else %}
+                                <div id="title" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label d-none">
+                                    <label for="email_address_2" style="font-weight:bold">Title :</label>
                                 </div>
-                                <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7 d-none">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="" id="tags"
-                                                name="tags">
+                                            <input type="text" class="form-control" id="t" placeholder="e.g. Mister" name="title">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div id="title2" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                    <label for="email_address_2" style="font-weight:bold">Tags :</label>
+                                </div>
+                                <div id="title3" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="tags" value="{{data.tags|default:''}}{{data.cmp_tags|default:''}}" name="tags">
                                         </div>
                                     </div>
                                 </div>
@@ -219,12 +274,295 @@
                         </div>
                         <div style="text-align: center;">
                             <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                            </form>
-                            <a href="{% url 'contact' %}">
-                                <button type="cancel" class="btn btn-outline-primary"
-                                    onclick="return confirm('Are You Sure to Discard')">Discard</button>
+                            
+                            <a href="{% url 'contact_list' %}">
+                                <button type="button" class="btn btn-outline-primary"
+                                    onclick="return confirm('Are You Sure to Discard')">Discard</button></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <a href="{% url 'delete_contact' %}?id={{data.id}}">
+                                <button type="button" class="btn btn-outline-primary"
+                                    onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
                             </a>
                         </div>
+                            <div style="padding-top: 2rem;"> 
+                              <div role="group" aria-label="Basic outlined example">
+                                <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Contacts & Addresses</button> -->
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="" onclick="show_sales()">Sales & Purchase</button> &nbsp;&nbsp;
+                                <button style="padding-left: 1rem;" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="" onclick="show_notes()">Internal Notes</button>
+                              </div>
+                            </div>
+                            
+                            <!-- Internal Notes -->
+                            <div class="form-group" id="notes" style="padding-top: 1rem;">
+                                <div class="form-line">
+                                    <textarea class="form-control" id="note" name="notes" value="{{data.internal_notes|default:''}}{{data.cmp_internal_notes|default:''}}"> {{data.internal_notes|default:''}} {{data.cmp_internal_notes|default:''}} </textarea>
+                                </div>
+                            </div>
+
+                            <!-- Sale & Purchase -->
+                            <div class="row col-sm-8" style="padding-top: 1rem;" id="sales">
+                    
+                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="Salesperson" id="sales" name="sales" value="{{data.sales_person|default:''}}{{data.cmp_sales_person|default:''}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="Reference" id="ref" name="reference" value="{{data.refrence|default:''}}{{data.cmp_refrence|default:''}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if data.cmp_title == none %}
+                                <div id="industry" class="col-lg-8 col-md-6 col-sm-4 col-xs-7 d-none">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="indus" placeholder="Industry" name="industry">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div id="industry" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="indus" placeholder="Industry" name="industry" value="{{data.cmp_industry}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </form>
+                            <!-- Contact Modal -->
+                            <div class="modal fade" id="exampleModal" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="height:100%;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Create Contact</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="form-line" style="display:inline-flex">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                        <label class="form-check-label" for="inlineRadio1">Contact</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <label class="form-check-label" for="inlineRadio2">Invoice Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <label class="form-check-label" for="inlineRadio3">Delivery Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                                                        <label class="form-check-label" for="inlineRadio4">Other Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option">
+                                                        <label class="form-check-label" for="inlineRadio5">Private Address</label>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div class="row">
+                                                <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-line" style="display:inline-flex">
+                                                        <input type="text" class="form-control" placeholder="Contact Name *"
+                                                            name="name" required />
+                                                    </div>
+                                                    <h2 class="card-inside-title">Address</h2>
+                                                    <div style="display:inline-flex">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="street1"
+                                                                        placeholder="Street 1" name="address_street_1" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" placeholder="Street 2"
+                                                                        id="street2" name="address_street_2" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:inline-flex">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="city" placeholder="City"
+                                                                        name="city" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="state"
+                                                                        placeholder="State" name="state" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="zip_code"
+                                                                        placeholder="ZIP" name="zip_code" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group form-group-lg">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control" id="country"
+                                                                    placeholder="Country" name="country" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                                <div class="row col-sm-6">
+                    
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                        <label for="email_address_2" style="font-weight:bold"> Phone :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control" id="phone" name="phone">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                          <label for="email_address_2" style="font-weight:bold">Mobile :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="tel" class="form-control" id="mobile" name="mobile">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                        <label for="email_address_2" style="font-weight:bold">Email :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="email" class="form-control" id="email" name="email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+                                            </div>    
+                                           </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 30rem; padding-bottom: 10rem;" >
+                                                <button type="button" class="btn btn-primary">Save & Close</button>
+                                                <button type="button" class="btn btn-primary">Save & New</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sales Modal -->
+                            <div class="modal fade" id="salesModel" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Sales & Purchase</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+                                            <div class="row col-sm-6">
+                    
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                    <label for="email_address_2" style="font-weight:bold"> Sales :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="Salesperson" id="sales" name="sales">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                      <label for="email_address_2" style="font-weight:bold">Misc :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="tel" class="form-control" placeholder="Reference" id="ref" name="reference">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                    <label for="email_address_2" style="font-weight:bold">Industry :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="email" class="form-control" id="industry" name="industry">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 39rem;">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Internal Notes Modal -->
+                            <div class="modal fade" id="notesModel" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Internal Notes</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea class="form-control" id="mote" name="notes"> </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 39rem;">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
 
                         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                         <script type="text/javascript">
@@ -234,6 +572,7 @@
                                 document.getElementById('title').style.display = 'none';
                                 document.getElementById('job').style.display = 'none';
                                 document.getElementById('title1').style.display = 'none';
+                                document.getElementById('industry').style.display = 'block';
                                 document.getElementById('street1').value = "";
                                 document.getElementById('street2').value = "";
                                 document.getElementById('city').value = "";
@@ -249,9 +588,43 @@
                                 document.getElementById('title').style.display = 'block';
                                 document.getElementById('job').style.display = 'block';
                                 document.getElementById('title1').style.display = 'block';
+                                document.getElementById('industry').style.display = 'none';
 
                             }
 
+                            document.getElementById('notes').style.display = 'none';
+                            document.getElementById('sales').style.display = 'none';
+                           
+                            let data = document.getElementById('css').value;
+                            let data1 = document.getElementById('html').value;
+                            function showHide(){
+                                if(data == "company"){
+                                    document.getElementById('company').style.display = 'none';
+                                    document.getElementById('job_position').style.display = 'none';
+                                    document.getElementById('title').style.display = 'none';
+                                    document.getElementById('job').style.display = 'none';
+                                    document.getElementById('title1').style.display = 'none';
+                                }
+                                if(data1 == "indivisual"){
+                                    document.getElementById('company').style.display = 'block';
+                                    document.getElementById('job_position').style.display = 'block';
+                                    document.getElementById('title').style.display = 'block';
+                                    document.getElementById('job').style.display = 'block';
+                                    document.getElementById('title1').style.display = 'block';
+                                }
+                                    
+                            }
+
+                            function show_notes(){
+                                document.getElementById('notes').style.display = 'block';
+                                document.getElementById("note").autofocus;
+                                document.getElementById('sales').style.display = 'none';
+                            }
+
+                            function show_sales(){
+                                document.getElementById('sales').style.display = 'block';
+                                document.getElementById('notes').style.display = 'none';
+                            }
 
                             let source = document.querySelector('#comp');
                             let target = document.querySelector('#comp1');
@@ -260,13 +633,13 @@
                                 value_1 = this.value
                                 console.log("VALUE", value_1)
                                 $.ajax({
-                                    url: "http://127.0.0.1:8000/get_comp_details/",
+                                    url: "/get_comp_details/",
                                     method: "GET",
                                     data: { value_1: value_1 },
                                     dataType: "json",
                                 })
                                     .done(function (data) {
-
+                                        console.log("AMIT", data)
                                         $('#street1').val(data.address_street_1);
                                         $('#street2').val(data.address_street_2);
                                         $('#city').val(data.city);
@@ -274,11 +647,12 @@
                                         $('#country').val(data.country);
                                         $('#zip_code').val(data.zip_code);
                                         $('#tax_id').val(data.tax_id);
+                                        
                                     });
                             });
+
                         </script>
+
                     </div>
 </section>
-
-
 {% endblock %}

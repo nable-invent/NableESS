@@ -60,13 +60,11 @@
                                                 onclick="return hide()">
                                             <label for="css"> Company </label><br>
                                         </div>
-
                                     </div>
 
                                     <div class="form-group">
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="text" class="form-control" placeholder="e.g. Branom Freeman *"
-                                                name="name" required />
+                                            <input type="text" class="form-control" placeholder="e.g. Branom Freeman *" name="name" required autofocus autocapitalize="on | sentences"/>
                                         </div>
 
                                         <div class="form-line" id="company" style="display:inline-flex">
@@ -74,7 +72,7 @@
                                                 <select name='company_name' class="form-control" id="comp">
                                                     <option> Select Company </option>
                                                     {% for i in data1 %}
-                                                    <option value="{{i.id}}"> {{i.title}}</option>
+                                                    <option value="{{i.id}}">{{i.title}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -153,7 +151,7 @@
                                 <div id="job" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="e.g. Sales Derector"
+                                            <input type="text" class="form-control" placeholder="e.g. Sales Director"
                                                 name="job_position">
                                         </div>
                                     </div>
@@ -206,19 +204,25 @@
                                 <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="e.g. Mister"
-                                                name="title">
+                                            <!-- <select name="title" class="form-control">
+                                                <option> Select </option>
+                                                <option value="Doctor">Doctor</option>
+                                                <option value="Madam">Madam</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Mister">Mister</option>
+                                                <option value="Professor">Professor</option>
+                                            </select> -->
+                                            <input type="text" class="form-control" id="t" placeholder="e.g. Mister" name="title">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="title" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                <div id="title2" class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
                                     <label for="email_address_2" style="font-weight:bold">Tags :</label>
                                 </div>
-                                <div id="title1" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                <div id="title3" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="" id="tags"
-                                                name="tags">
+                                            <input type="text" class="form-control" id="tags" name="tags">
                                         </div>
                                     </div>
                                 </div>
@@ -237,12 +241,280 @@
                         </div>
                         <div style="text-align: center;">
                             <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                            </form>
+                            
                             <a href="{% url 'contact' %}">
-                                <button type="cancel" class="btn btn-outline-primary"
+                                <button type="button" class="btn btn-outline-primary"
                                     onclick="return confirm('Are You Sure to Discard')">Discard</button>
                             </a>
                         </div>
+                            <div style="padding-top: 2rem;"> 
+                              <div role="group" aria-label="Basic outlined example">
+                                <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Contacts & Addresses</button> -->
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="" onclick="show_sales()">Sales & Purchase</button> &nbsp;&nbsp;
+                                <button style="padding-left: 1rem;" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="" onclick="show_notes()">Internal Notes</button>
+                              </div>
+                            </div>
+                            
+                            <!-- Internal Notes -->
+                            <div class="form-group" id="notes" style="padding-top: 1rem;">
+                                <div class="form-line">
+                                    <textarea class="form-control" id="note" name="notes"> </textarea>
+                                </div>
+                            </div>
+
+                            <!-- Sale & Purchase -->
+                            <div class="row col-sm-8" style="padding-top: 1rem;" id="sales">
+                    
+                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="Salesperson" id="sales" name="sales">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="Reference" id="ref" name="reference">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="industry" class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="indus" placeholder="Industry" name="industry">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                            <!-- Contact Modal -->
+                            <div class="modal fade" id="exampleModal" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="height:100%;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Create Contact</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="form-line" style="display:inline-flex">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                        <label class="form-check-label" for="inlineRadio1">Contact</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <label class="form-check-label" for="inlineRadio2">Invoice Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <label class="form-check-label" for="inlineRadio3">Delivery Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                                                        <label class="form-check-label" for="inlineRadio4">Other Address</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option">
+                                                        <label class="form-check-label" for="inlineRadio5">Private Address</label>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div class="row">
+                                                <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-line" style="display:inline-flex">
+                                                        <input type="text" class="form-control" placeholder="Contact Name *"
+                                                            name="name" required />
+                                                    </div>
+                                                    <h2 class="card-inside-title">Address</h2>
+                                                    <div style="display:inline-flex">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="street1"
+                                                                        placeholder="Street 1" name="address_street_1" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" placeholder="Street 2"
+                                                                        id="street2" name="address_street_2" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:inline-flex">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="city" placeholder="City"
+                                                                        name="city" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="state"
+                                                                        placeholder="State" name="state" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control" id="zip_code"
+                                                                        placeholder="ZIP" name="zip_code" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group form-group-lg">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control" id="country"
+                                                                    placeholder="Country" name="country" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                                <div class="row col-sm-6">
+                    
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                        <label for="email_address_2" style="font-weight:bold"> Phone :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control" id="phone" name="phone">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                          <label for="email_address_2" style="font-weight:bold">Mobile :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="tel" class="form-control" id="mobile" name="mobile">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                        <label for="email_address_2" style="font-weight:bold">Email :</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="email" class="form-control" id="email" name="email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+                                            </div>    
+                                           </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 30rem; padding-bottom: 10rem;" >
+                                                <button type="button" class="btn btn-primary">Save & Close</button>
+                                                <button type="button" class="btn btn-primary">Save & New</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sales Modal -->
+                            <div class="modal fade" id="salesModel" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Sales & Purchase</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+                                            <div class="row col-sm-6">
+                    
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                    <label for="email_address_2" style="font-weight:bold"> Sales :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="Salesperson" id="sales" name="sales">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                      <label for="email_address_2" style="font-weight:bold">Misc :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="tel" class="form-control" placeholder="Reference" id="ref" name="reference">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-5 form-control-label">
+                                                    <label for="email_address_2" style="font-weight:bold">Industry :</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="email" class="form-control" id="industry" name="industry">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 39rem;">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Internal Notes Modal -->
+                            <div class="modal fade" id="notesModel" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Internal Notes</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea class="form-control" id="mote" name="notes"> </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div style="padding-right: 39rem;">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
 
                         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                         <script type="text/javascript">
@@ -252,6 +524,7 @@
                                 document.getElementById('title').style.display = 'none';
                                 document.getElementById('job').style.display = 'none';
                                 document.getElementById('title1').style.display = 'none';
+                                document.getElementById('industry').style.display = 'block';
                                 document.getElementById('street1').value = "";
                                 document.getElementById('street2').value = "";
                                 document.getElementById('city').value = "";
@@ -267,7 +540,22 @@
                                 document.getElementById('title').style.display = 'block';
                                 document.getElementById('job').style.display = 'block';
                                 document.getElementById('title1').style.display = 'block';
+                                document.getElementById('industry').style.display = 'none';
 
+                            }
+
+                            document.getElementById('notes').style.display = 'none';
+                            document.getElementById('sales').style.display = 'none';
+
+                            function show_notes(){
+                                document.getElementById('notes').style.display = 'block';
+                                document.getElementById("note").autofocus;
+                                document.getElementById('sales').style.display = 'none';
+                            }
+
+                            function show_sales(){
+                                document.getElementById('sales').style.display = 'block';
+                                document.getElementById('notes').style.display = 'none';
                             }
 
 
@@ -284,7 +572,7 @@
                                     dataType: "json",
                                 })
                                     .done(function (data) {
-                                        console.log("AMIYT", data)
+                                        console.log("AMIT", data)
                                         //alert(data.phone)
                                         //    for (let i = 0; i < data.vat_type.length; i++) {
                                         //    $('#id_familymember_set-0-tax_type').val(data.vat_type[i].name);

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'master',
+    'mobile_api',
     'rest_framework',
 ]
 
@@ -73,14 +74,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 AUTH_USER_MODEL = "accounts.CustomUser"
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    )
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#     )
+# }
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
