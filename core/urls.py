@@ -42,5 +42,6 @@ urlpatterns = [
     path('api/contactlist', ContactList.as_view(), name='api/contactlist'),
     path('api/getcontact/<id>', GetContact.as_view(), name='api/getcontact'),
     path('api/deletecontact/<id>', DeleteContact.as_view(), name='api/deletecontact'),
+    path('api/updatecontact/<id>', UpdateContact.as_view(), name='api/updatecontact'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
