@@ -1,0 +1,253 @@
+{% extends 'side_bar.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        margin: 0px;
+    }
+
+    .my-container {
+        border: 0px solid green;
+    }
+
+    .my-row {
+        border: 0px solid gray;
+    }
+
+    .my-col {
+        margin: 1px;
+        padding: 20px;
+        width: 50vh;
+        height: 100vh;
+        border: 2px rgba(248, 63, 7, 0.904);
+    }
+
+    .hold {
+        border:1px solid red;
+        border-radius: 5px;
+    }
+
+    .dashed {
+        background: rgba(27, 26, 27, 0.384);
+        border-style: dashed;
+    }
+
+    .hide {
+        border: none;
+    }
+
+    #p1 {
+        padding: 5px;
+        border: 1px solid black;
+        text-align: left;
+
+    }
+    #p1:hover  {
+       border:1px solid #0077ff;
+        
+    }
+
+    .pstyle{
+        background-color:#FFFFFF; 
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .sstyle{
+        float:right;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    a{
+        color: black;
+    }
+    .rating {
+        width: 50px;
+        margin: 0 auto 1em;
+        font-size: 20px;
+        overflow: hidden;
+    }
+
+    g label:hover~label,
+    .rating input:focus~label,
+    .rating label:hover,
+    .rating a:hover,
+    .rating a:hover~a,
+    .rating a:focus,
+    .rating a:focus~a {
+        color: orange;
+        cursor: pointer;
+    }
+
+    .rating2 {
+        direction: rtl;
+    }
+
+    .rating2 a {
+        float: none
+    }
+    .rating input {
+        float: right;
+        opacity: 0;
+        position: absolute;
+    }
+
+    .rating a,
+    .rating label {
+        float: right;
+        color: #aaa;
+        text-decoration: none;
+        -webkit-transition: color .4s;
+        -moz-transition: color .4s;
+        -o-transition: color .4s;
+        transition: color .4s;
+    }
+    
+</style>
+
+<h4>Pipeline</h4>
+<div class="m-2">
+    <a href="{% url 'pipeline_add' %}"><button class="btn btn-primary">Create</button></a>
+</div>
+
+<div class="row" style="padding-left: 1rem;">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2 m-2 p-3 pstyle">New <a href="{% url 'pipeline_add' %}"> <span class="sstyle">+</span> </a> </div>
+            <div class="col-md-2 m-2 p-3 pstyle">Qualified <a href="{% url 'pipeline_add' %}"> <span class="sstyle">+</span></a></div>
+            <div class="col-md-2 m-2 p-3 pstyle">Proposition <a href="{% url 'pipeline_add' %}"><span class="sstyle">+</span></a></div>
+            <div class="col-md-2 m-2 p-3 pstyle">Won <a href="{% url 'pipeline_add' %}"><span class="sstyle">+</span></a></div>
+        </div>
+    </div>
+   
+</div>
+
+
+<div class="row" style="padding-left: 1rem;">
+    <div class="col-md-12">
+        <div class="row">
+            
+            <div id="div1" class="col-md-2 m-2 p-3 my-col" style="background-color:#FFFFFF" ondrop="drop(event)"
+                ondragover="allowDrop(event)">
+                {% for i in data %} 
+                <div id="p1" draggable="true" ondragstart="drag(event)">
+                    <span> <strong>{{i.opportunity}} </strong></span><br>
+                    <span>{{i.expected_revenue}}</span><br>
+                    <span>{{i.contact}}</span> <br>
+                       <p style="float:left;"> <span class="rating rating2">
+                            <a href="#3" title="Give 3 stars" data-value="3">★</a>
+                            <a href="#2" title="Give 2 stars" data-value="2">★</a>
+                            <a href="#1" title="Give 1 star" data-value="1">★</a>
+                        </span> </p><br>
+                </div> 
+                <br>
+                {% endfor %}
+            </div>
+           
+            <div id="div2" class="col-md-2 m-2 p-3 my-col" style="background-color:#FFFFFF" ondrop="drop(event)"
+                ondragover="allowDrop(event)"></div>
+            <div id="div3" class="col-md-2 m-2 p-3 my-col" style="background-color:#FFFFFF" ondrop="drop(event)"
+                ondragover="allowDrop(event)"></div>
+            <div id="div4" class="col-md-2 m-2 p-3 my-col" style="background-color:#FFFFFF" ondrop="drop(event)"
+                ondragover="allowDrop(event)"></div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- yashwant -->
+<!-- <h2 class="card-inside-title">Address</h2> -->
+<!-- <div style="display:inline-flex">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <div class="rating rating2">
+                <a href="#3" title="Give 3 stars" data-value="3">★</a>
+                <a href="#2" title="Give 2 stars" data-value="2">★</a>
+                <a href="#1" title="Give 1 star" data-value="1">★</a>
+                <input type="hidden" name="rating3" id="rating4">
+            </div>
+            <div class="form-line">
+            <input type="text" class="form-control" id="street1" placeholder="" name="" readonly />
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- yashwant -->
+
+<!-- <div class="container my-container">
+    <div class="row my-row">
+        <div id="div1" class="col-md-3 my-col" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p id="p1" draggable="true" ondragstart="drag(event)">drag content</p>
+        </div>
+        <div id="div2" class="col-md-3 my-col" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragstart="drag(event)"> </div>
+        <div id="div3" class="col-md-3 my-col" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragstart="drag(event)"> </div>
+        <div id="div4" class="col-md-2 my-col" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragstart="drag(event)"> </div>
+    </div>
+
+</div> -->
+
+<!-- <script> 
+let source = document.querySelector('#comp');
+let target = document.querySelector('#comp1');
+source.addEventListener('change', function () {
+// target.textContent = this.value;
+value_1 = this.value
+console.log("VALUE", value_1)
+$.ajax({
+url: "/get_contact_details/",
+method: "GET",
+data: { value_1: value_1 },
+dataType: "json",
+})
+.done(function (data) {
+//alert(data.company_name)
+// for (let i = 0; i < data.vat_type.length; i++) { // $('#id_familymember_set-0-tax_type').val(data.vat_type[i].name);
+    // } // let text=data.vat_percentage // const myArray=text.split(".") 
+    if (data.company_name==null) {
+    $('#name').val(data.cmp_title+'`s Opportunity'); 
+    $('#email').val(data.cmp_email); 
+    $('#phone').val(data.cmp_phone); 
+    }
+    else { 
+        $('#name').val(data.name+'`s Opportunity'); 
+        $('#email').val(data.email); 
+        $('#phone').val(data.phone); 
+    } 
+}); -->
+
+</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            e.dataTransfer.setData('text', e.target.id);
+            e.target.className += ' hold';
+            // setTimeout(()=>{
+            //     e.target.className = 'hide';
+            // },0);
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            var data = e.dataTransfer.getData('text');
+            e.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+{% endblock %}

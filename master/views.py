@@ -12,23 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from . serializer import CompanySerializer,ContactSerializer
+from django.core.mail import send_mail
+from core.settings import EMAIL_HOST_USER
 # Create your views here.
 
 
 def index(request):
     return render(request, 'login.html')
-
-# def company(request):
-#     if request.method == 'POST':
-#         form = CompanyForm(request.POST, request.FILES)
-#         print("form", form)
-#         if form.is_valid():
-#             form.save()
-#     form = CompanyForm()
-#     context = {
-#         "form":form,
-#     }
-#     return render(request, 'contactt.html', context)
 
 
 def contact(request):
@@ -69,7 +59,7 @@ def save_contact(request):
                 print(name,company_name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,title,tags,image,notes,sales,reference)
                 try:
                     idata = Individual.objects.create(name=name,title=title,company_name=var,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,
-                    country=country,zip_code=zip,job_position=job_position,phone=phone,mobile=mobile,email=email,website=website,tags=tags,individual_image=image,internal_notes=notes,sales_person=sales,refrence=reference)
+                    country=country,zip_code=zip,job_position=job_position,phone=phone,mobile=mobile,email=email,website=website,tags=tags,image=image,internal_notes=notes,sales_person=sales,refrence=reference)
                     idata.save()
                     print("data is saved")
                     id = Individual.objects.get(id=idata.id)
@@ -82,8 +72,8 @@ def save_contact(request):
         elif user_type == "company":
             print(name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,tags,image,notes,sales,reference,industry)
             try:
-                cdata = Company.objects.create(title=name,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,country=country,
-                zip_code=zip,phone=phone,mobile=mobile,email=email,website=website,tags=tags,company_image=image,internal_notes=notes,sales_person=sales,refrence=reference,industry=industry)
+                cdata = Company.objects.create(name=name,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,country=country,
+                zip_code=zip,phone=phone,mobile=mobile,email=email,website=website,tags=tags,image=image,internal_notes=notes,sales_person=sales,refrence=reference,industry=industry)
                 cdata.save()
 
                 cid = Company.objects.get(id=cdata.id)
@@ -104,7 +94,6 @@ def get_comp_details(request):
 
 
 def pipeline_add(request):
-    data = Contact.objects.all()
     return render(request,'pipeline_add.html',{"data":Contact.objects.all()})
 
 
@@ -124,7 +113,7 @@ def save_pipeline(request):
             Pipeline(contact=c_id,opportunity=opportunity,email=email,phone=phone,expected_revenue=revenue,rating=rating).save()
         except ValueError:
             return render(request,"pipeline_add.html",{"error":"Invalid Expected Revenue","data":Contact.objects.all()})
-    return redirect('pipeline_add')
+    return redirect('pipeline')
 
 
 def get_contact_details(request):
@@ -211,7 +200,7 @@ def update_contact(request):
                     data.email=email
                     data.website=website
                     data.tags=tags
-                    data.individual_image=image
+                    data.image=image
                     data.internal_notes=notes
                     data.sales_person=sales
                     data.refrence=reference
@@ -236,7 +225,7 @@ def update_contact(request):
                     cdata.email=email
                     cdata.website=website
                     cdata.tags=tags
-                    cdata.individual_image=image
+                    cdata.image=image
                     cdata.internal_notes=notes
                     cdata.sales_person=sales
                     cdata.refrence=reference
@@ -250,7 +239,7 @@ def update_contact(request):
             print("Company", comp)
             print(name,street1,street2,city,state,zip,country,tax_id,job_position,phone,mobile,email,website,tags,image,notes,sales,reference,industry)
             try:
-                comp.title=name
+                comp.name=name
                 comp.tax_id=tax_id
                 comp.address_street_1=street1
                 comp.address_street_2=street2
@@ -263,7 +252,7 @@ def update_contact(request):
                 comp.email=email
                 comp.website=website
                 comp.tags=tags
-                comp.company_image=image
+                comp.image=image
                 comp.internal_notes=notes
                 comp.sales_person=sales
                 comp.refrence=reference
@@ -315,10 +304,70 @@ def delete_contact(request):
         print("Individual Delete")
         Contact.objects.filter(id=id).delete()
         print("Contact Delete")
-    return redirect('contact_list') 
+    return redirect('contact_list')
+
+
 def pipeline(request):
     pipeline = Pipeline.objects.all()
     context = {
         'data':pipeline,
     }
     return render(request, 'pipeline.html', context)
+
+
+def pipeline_edit(request):
+    id = request.GET.get("id")
+    pipeline = Pipeline.objects.get(id=id)
+    print("Pipeline",pipeline)
+    context ={
+        'data':Contact.objects.all(),
+        'data1': pipeline,
+    }
+    return render(request, 'pipeline_edit.html',context)
+
+
+def update_pipeline(request):
+    contact_id = request.POST.get('contact_id')
+    opportunity = request.POST.get('name')
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
+    revenue = request.POST.get('revenue')
+    rating = request.POST.get('rating3')
+    pid = request.GET.get('id')
+    pdata = Pipeline.objects.get(id=pid)
+    print(contact_id,opportunity,email,phone,revenue,rating)
+    if contact_id == 'Select':
+        return render(request,'pipeline_edit.html',{"error":"Please select Organization/Contact","data":Contact.objects.all()})
+    else: 
+        try:
+            c_id = Contact.objects.get(id=contact_id)
+            pdata.contact=c_id
+            pdata.opportunity=opportunity
+            pdata.email=email
+            pdata.phone=phone
+            pdata.expected_revenue=revenue
+            pdata.rating=rating
+            pdata.save()
+        except ValueError:
+            return render(request,"pipeline_edit.html",{"error":"Invalid Expected Revenue","data":Contact.objects.all()})
+    return redirect('pipeline')
+
+
+def delete_pipeline(request):
+    id = request.GET.get('id')
+    print("ID",id)
+    Pipeline.objects.filter(id=id).delete()
+    return redirect('pipeline')
+
+
+def change_pipeline_status(request):
+    id = request.GET["value_1"]
+    status = request.GET["status"]
+    print("value", id, status)
+    res = Pipeline.objects.get(id=id)
+    print(res)
+    res.status = status
+    res.save()
+    # ser = ContactSerializer(res)
+    messase = {"data":"Status Change Successfully"}
+    return JsonResponse(messase)

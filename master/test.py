@@ -35,3 +35,21 @@ def save_contact(request):
                 print("data2")
                 form.save() 
     return render(request, 'contact.html')
+
+# def company(request):
+
+    # send_to = d_email.split(",")
+    # send_to_subject = "Registration OTP"
+    # send_to_message = "Your Registration OTP is : " + str(EMAIL_OTP)
+    # send_mail(send_to_subject, send_to_message, EMAIL_HOST_USER, send_to,fail_silently=False)
+
+#     if request.method == 'POST':
+#         form = CompanyForm(request.POST, request.FILES)
+#         print("form", form)
+#         if form.is_valid():
+#             form.save()
+#     form = CompanyForm()
+#     context = {
+#         "form":form,
+#     }
+#     return render(request, 'contactt.html', context)

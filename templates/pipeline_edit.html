@@ -51,7 +51,7 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2> Pipeline
+                <h2> Update Pipeline
                     <small class="text-muted"> Welcome to Nable CRM </small>
                 </h2>
             </div>
@@ -71,11 +71,11 @@
                         {% endif %}
                     </div>
                     <div class="body">
-                        <h2 class="card-inside-title" style="padding-bottom: 2rem;"> Pipeline </h2>
+                        <h2 class="card-inside-title" style="padding-bottom: 2rem;"> Update Pipeline </h2>
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <!-- input form started-->
-                                <form action="{% url 'save_pipeline' %}" onsubmit="comp_check()" method="post"
+                                <form action="{% url 'update_pipeline' %}?id={{data1.id}}" onsubmit="comp_check()" method="post"
                                     enctype="multipart/form-data" autocomplete="off">
                                     {% csrf_token %}
 
@@ -88,10 +88,9 @@
                                                     <option value="Select">Select</option>
                                                     {% for i in data %}
                                                     {% if i.company_name == None %}
-                                                    <option value="{{i.id}}"> {{i}} </option>
+                                                    <option value="{{i.id}}" {% if data1.contact.id == i.id %} selected {% endif %}> {{i}} </option>
                                                     {% else %}
-                                                    <option value="{{i.id}}"> {{i.company_name}} &nbsp;&nbsp;&nbsp;
-                                                        {{i}}</option>
+                                                    <option value="{{i.id}}" {% if data1.contact.id == i.id %} selected {% endif %}> {{i.company_name}} &nbsp;&nbsp;&nbsp; {{i}}</option>
                                                     {% endif %}
                                                     {% endfor %}
                                                 </select>
@@ -99,22 +98,22 @@
                                         </div>
                                         <h2 class="card-inside-title"> Opportunity </h2>
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="text" class="form-control" placeholder="e.g. Product Pricing"
+                                            <input type="text" class="form-control" placeholder="e.g. Product Pricing" value="{{data1.opportunity}}"
                                                 id="name" name="name" />
                                         </div>
                                         <h2 class="card-inside-title"> Email </h2>
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="email" class="form-control" placeholder="" id="email"
+                                            <input type="email" class="form-control" placeholder="" id="email" value="{{data1.email}}"
                                                 name="email" />
                                         </div>
                                         <h2 class="card-inside-title"> Phone </h2>
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="text" class="form-control" placeholder="" id="phone"
+                                            <input type="text" class="form-control" placeholder="" id="phone" value="{{data1.phone}}"
                                                 name="phone" />
                                         </div>
                                         <h2 class="card-inside-title"> Expected Revenue </h2>
                                         <div class="form-line" style="display:inline-flex">
-                                            <input type="text" class="form-control" placeholder="0.00" name="revenue" />
+                                            <input type="text" class="form-control" placeholder="0.00" value="{{data1.expected_revenue}}" name="revenue" />
                                         </div>
 
                                     </div>
@@ -136,8 +135,11 @@
                         <div style="text-align: center;">
                             <button type="submit" class="btn btn-outline-primary">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
                             </form>
-                            <a href="{% url 'pipeline_add'%}">
-                                <button type="cancel" class="btn btn-outline-primary" onclick="return confirm('Are You Sure to Discard')">Discard</button>
+                            <a href="{% url 'pipeline' %}">
+                                <button type="cancel" class="btn btn-outline-primary" onclick="return confirm('Are You Sure to Discard')">Discard</button></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                            <a href="{% url 'delete_pipeline' %}?id={{data1.id}}">
+                                <button type="cancel" class="btn btn-outline-primary" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
                             </a>
                         </div>
 

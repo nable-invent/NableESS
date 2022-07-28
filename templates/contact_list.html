@@ -14,7 +14,7 @@ a{
 
 
 <div>
-    <h3>Conatcts</h3>
+    <h4>Conatcts</h4>
 </div>
 <div class="m-3">
     <a href="{% url 'contact' %}"><button class="btn btn-primary">Create</button></a>
@@ -28,15 +28,15 @@ a{
 
                 <div>
                     {% if i.individual_image %}
-                    <img src="{{i.individual_image.url}}" alt="Card image cap" height="100" width="100">
+                    <img src="{{i.individual_image.url}}" alt="Card image cap" height="100" width="100" style="padding: 5px;">
                     {% else %}
                     {% if i.cmp_title == none %}
-                    <img src="/static/assets/images/person.png" alt="Card image cap" height="100" width="100">
+                    <img src="/static/assets/images/person.png" alt="Card image cap" height="100" width="100" style="padding: 5px;">
                     {% else %}
                     {% if i.company_image %}
-                    <img src="{{i.company_image.url}}" alt="Card image cap" height="100" width="100">
+                    <img src="{{i.company_image.url}}" alt="Card image cap" height="100" width="100" style="padding:5px;">
                     {% else %}
-                    <img src="/static/assets/images/company1.jpg" alt="Card image cap" height="100" width="100">
+                    <img src="/static/assets/images/company1.jpg" alt="Card image cap" height="100" width="100" style="padding: 5px;">
                     {% endif %}
                     {% endif %}
                     {% endif %}

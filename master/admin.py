@@ -5,7 +5,7 @@ from django.contrib import admin
 from .models import Company, Individual, Pipeline, Contact
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ["title"] 
+    list_display = ["name"] 
 
 
 admin.site.register(Company,CompanyAdmin)

@@ -8,7 +8,7 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ['address_street_1','address_street_2',
-        'city','state','zip_code','country','tax_id','phone','mobile','email','website','title','tags']
+        'city','state','zip_code','country','tax_id','phone','mobile','email','website','name','tags']
 
 class IndividualForm(forms.ModelForm):
     class Meta:

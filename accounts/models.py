@@ -12,7 +12,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50 , verbose_name="Last Name * ")
     date_joined = models.DateTimeField(default=datetime.datetime.now)
     phone_number = models.PositiveBigIntegerField(null=True, blank=True, verbose_name="Phone Number ", help_text="Optional")
-    address = models.CharField(max_length=150 , null=True, verbose_name="Address ")
+    address = models.CharField(max_length=150 , null=True, verbose_name="Address")
     profile_image = models.ImageField(null=True, blank=True, upload_to ="profile image" ,verbose_name="Profile Image")
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

@@ -5,7 +5,7 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2> Contact Details
+                <h2> Create Contact
                     <small class="text-muted"> Welcome to Nable CRM </small>
                 </h2>
             </div>
@@ -72,7 +72,7 @@
                                                 <select name='company_name' class="form-control" id="comp">
                                                     <option> Select Company </option>
                                                     {% for i in data1 %}
-                                                    <option value="{{i.id}}">{{i.title}}</option>
+                                                    <option value="{{i.id}}">{{i.name}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
