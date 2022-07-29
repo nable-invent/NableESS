@@ -26,6 +26,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dash', index, name="index"),
+    path('user_signup',user_signup,name="user_signup"),
     path('', contact_list, name="contact_list"),
     path('contact_edit', contact_edit, name="contact_edit"),
     path('contact', contact, name="contact"),
