@@ -145,8 +145,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
-COMPANY_IMAGE = 'media/company_image/company1.png'
-INDIVIDUAL_IMAGE = 'media/individual_image/person.png'
+COMPANY_IMAGE = 'company_image/company1.png'
+INDIVIDUAL_IMAGE = 'individual_image/person.png'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
