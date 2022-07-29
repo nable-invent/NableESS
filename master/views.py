@@ -20,6 +20,9 @@ from core.settings import EMAIL_HOST_USER
 def index(request):
     return render(request, 'login.html')
 
+def user_signup(request):
+    return render(request,'signup.html')
+
 
 def contact(request):
     return render(request, 'contact.html',{"data1":Company.objects.all()})

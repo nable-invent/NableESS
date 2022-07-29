@@ -135,5 +135,5 @@ dmypy.json
 /mobile_api/migrations/*
 
 
-/static/
-/media/
+# /static/
+# /media/
