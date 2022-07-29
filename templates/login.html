@@ -1,26 +1,102 @@
-{% extends 'side_bar.html' %}
 {% load static %}
-{% block content %}
-<section class="content col-md-10">
-    <div class="col-lg-7 col-md-6 col-sm-12">
-        <h2 style="padding-top: 1rem;"> Contact Details
-            <div> <small class="text-muted"> Welcome to Nable CRM </small> </div>
-            
-        </h2>
-        <table cellpadding="5" cellspacing="5" width="100%">
-            <tr>
-                <th> <input class="form-control form-control-sm" type="text" placeholder="name" aria-label=".form-control-sm example"> </th>
-                <th> <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"> </th>
-            </tr>
-            <tr>
-                <th> <input class="form-control form-control-sm" type="text" placeholder="name" aria-label=".form-control-sm example"> </th>
-                <th> <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"> </th>
-            </tr>
-            
-        </table> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Nable CRM</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	
+    <link rel="stylesheet" type="text/css" href="/static/login/fonts/iconic/css/material-design-iconic-font.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/login/css/main.css"> 
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-color: rgb(165, 225, 245);">
+			<div class="wrap-login100" style="background: -webkit-linear-gradient(top, #75f9ff, #efa724);">
+				<form class="login100-form validate-form">
+					<span class="login100-form-logo">
+						<i class="fa fa-user"></i>
+					</span>
 
-    </div>
-    
-     
-</section>        
-{% endblock %}
+					<span class="login100-form-title p-b-34 p-t-27">
+						Log in
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="pass" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<div class="contact100-form-checkbox" style="float:right;">
+						<a href="">
+						<h6 style="color: white;">Forgot Password?</h6>
+                        </a>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-90" style="padding: 2rem;">
+						<a class="txt1" href="#">
+							<h6>New User Register Here</h6>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+    <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+    <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/js/main.js"></script>
+
+</body>
+</html>
