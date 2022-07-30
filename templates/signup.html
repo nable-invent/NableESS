@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Nable::CRM::SignUp</title>
 
     <!-- Icons font CSS-->
     <link href="/static/signup/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -21,29 +22,37 @@
     <!-- Vendor CSS-->
     <link href="/static/signup/vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="/static/signup/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-
+    <link rel="stylesheet" type="text/css" href="/static/login/css/main.css"> 
     <!-- Main CSS-->
     <link href="/static/signup/css/main.css" rel="stylesheet" media="all">
+    <style>
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="background:white;">
         <div class="wrapper wrapper--w680">
-            <div class="card card-4">
+            <div class="card card-4" style="background: -webkit-linear-gradient(top, #75f9ff, #efa724);">
                 <div class="card-body">
                     <h2 class="title">Registration Form</h2>
-                    <form method="POST">
+
+                    <form action="{% url 'user_register' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name" pattern="[a-zA-Z]+">
+                                    <input class="input--style-4" type="text" name="first_name" pattern="[a-zA-Z]+" title="Only Letters is Allow" required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name" pattern="[a-zA-Z]+">
+                                    <input class="input--style-4" type="text" name="last_name" title="Only Letters is Allow" pattern="[a-zA-Z]+">
                                 </div>
                             </div>
                         </div>
@@ -51,48 +60,51 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <input class="input--style-4" type="email" name="email" required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="tel" name="phone">
+                                    <input class="input--style-4" type="tel" name="phone" pattern="[0-9]{10}" title="Please Enter Valid Mobile Number">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Password</label>
-                                    <input class="input--style-4" type="password" name="password">
+                                    <input class="input--style-4" type="password" name="password" required pattern=".{8,16}" title="Password Length Minimum 8 and Maximum 16">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Confirm Password</label>
-                                    <input class="input--style-4" type="password" name="cpassword">
+                                    <input class="input--style-4" type="password" name="cpassword" required pattern=".{8,16}"  title="Password Length Minimum 8 and Maximum 16">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Profile Image</label>
-                                    <input class="input--style-4" type="file" name="image" accept="image/png, image/jpeg,image/jpg">
+                                    <input class="input--style-4" type="file" name="image" accept="image/png,image/jpeg,image/jpg">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Address</label>
-                                    <textarea class="input--style-4" rows="1"> </textarea>
+                                    <textarea class="input--style-4" rows="1" name="address"> </textarea>
                                     <!-- <input class="input--style-4" type="password" name="cpassword"> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="p-t-15" style="text-align: center;">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        <div class="p-t-15 container-login100-form-btn" style="align-content: center; display: inline-flex;">
+                            <button class="login100-form-btn" type="submit">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="login100-form-btn" type="cancel">Clear</button> 
                         </div>
                     </form>
-                    <a href="">
-                        <h6> Back To Login </h6>
-                    </a>
+                    <div style="padding-top: 1rem;"> 
+                        <a href="{% url 'index' %}">
+                        <h4> Back To Login </h4>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

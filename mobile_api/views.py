@@ -10,7 +10,7 @@ import json
 
 
 class SaveContact(APIView):
-    parser_classes = (MultiPartParser, FormParser)
+    # parser_classes = (MultiPartParser, FormParser)
     def post(self,request):
         if request.data['user_type'] == "individual":
             print(request.data['user_type'])
@@ -52,6 +52,13 @@ class SaveContact(APIView):
             else:
                 # message = {"error": company.errors}
                 return Response(company.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+class CompanyList(APIView):
+    def get(self,request):
+        qs = Company.objects.all()
+        company = CompanySerializers(qs, many=True)       
+        return Response(company.data,status=status.HTTP_200_OK)
 
 
 class ContactList(APIView):
