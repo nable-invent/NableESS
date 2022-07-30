@@ -19,14 +19,16 @@ from django.contrib import admin
 from django.urls import path, include
 from master.views import *
 from mobile_api.views import *
+from accounts.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dash', index, name="index"),
+    path('index', index, name="index"),
     path('user_signup',user_signup,name="user_signup"),
+    path('user_register',user_register,name="user_register"),
     path('', contact_list, name="contact_list"),
     path('contact_edit', contact_edit, name="contact_edit"),
     path('contact', contact, name="contact"),
@@ -47,6 +49,7 @@ urlpatterns = [
 
 
 # Mobile-Api
+    path('api/companylist', CompanyList.as_view(), name='api/companylist'),
     path('api/savecontact', SaveContact.as_view(), name='api/savecontact'),
     path('api/contactlist', ContactList.as_view(), name='api/contactlist'),
     path('api/getcontact/<id>', GetContact.as_view(), name='api/getcontact'),

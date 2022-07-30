@@ -47,8 +47,7 @@
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <!-- input form started-->
-                                <form action="{% url 'save_contact'%}" method="post" enctype="multipart/form-data"
-                                    autocomplete="off">
+                                <form action="{% url 'save_contact'%}" method="post" enctype="multipart/form-data"autocomplete="off">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <div class="form-line" style="display:inline-flex">

@@ -25,27 +25,21 @@ a{
         {% for i in data %}
         <a href="{% url 'contact_edit' %}?id={{i.id}}">
             <div class="card mt-2 m-2" style="width: 22rem;display: flex; flex-direction: row;">
-
                 <div>
-                    {% if i.individual_image %}
-                    <img src="{{i.individual_image.url}}" alt="Card image cap" height="100" width="100" style="padding: 5px;">
-                    {% else %}
-                    {% if i.cmp_title == none %}
-                    <img src="/static/assets/images/person.png" alt="Card image cap" height="100" width="100" style="padding: 5px;">
-                    {% else %}
-                    {% if i.company_image %}
-                    <img src="{{i.company_image.url}}" alt="Card image cap" height="100" width="100" style="padding:5px;">
-                    {% else %}
-                    <img src="/static/assets/images/company1.jpg" alt="Card image cap" height="100" width="100" style="padding: 5px;">
-                    {% endif %}
-                    {% endif %}
-                    {% endif %}
+                        {% if i.individual_image %}
+                        <img src="{{i.individual_image.url}}" alt="Card image cap" height="100" width="100" style="padding: 5px;">
+                        {% endif %}
+
+                        {% if i.company_image %}
+                        <img src="{{i.company_image.url}}" alt="Card image cap" height="100" width="100" style="padding:5px;"> 
+                        {% endif %}
+
                 </div>
                 <div>
                     {% if i.cmp_title == none %}
                         <p class="card-text font-weight-bold ml-3 m-1">{{i.company_name}}, {{i.name}}</p>
                     {% if i.job_position == '' %}
-                        <p class="card-text ml-3 m-1 ">{{i.job_position|default:""}} {{i.company_name|default:""}}</p>
+                        <p class="card-text ml-3 m-1 ">{{i.job_position|default:""}}</p>
                     {% else %}
                         <p class="card-text ml-3 m-1 ">{{i.job_position}} at {{i.company_name|default:""}}</p>
                     {% endif %}
