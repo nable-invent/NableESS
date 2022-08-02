@@ -105,7 +105,7 @@ class Contact(models.Model):
     phone = models.CharField(max_length=50,null=True,blank=True)
     mobile = models.CharField(max_length=50,null=True,blank=True)
     email = models.EmailField(null=True,blank=True)
-    website = models.URLField(null=True,blank=True)
+    website = models.CharField(max_length=50,null=True,blank=True)
     # sr_title = models.CharField(max_length=100, null=True,blank=True)
     tags = models.CharField(max_length=100, null=True,blank=True)
     internal_notes = models.TextField(null=True,blank=True)
