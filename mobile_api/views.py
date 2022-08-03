@@ -10,7 +10,7 @@ import json
 
 
 class SaveContact(APIView):
-    # parser_classes = (MultiPartParser, FormParser)
+    
     def post(self,request):
         if request.data['user_type'] == "individual":
             print(request.data['user_type'])
@@ -22,12 +22,11 @@ class SaveContact(APIView):
                 print("Idata",idata)
                 print("Indivisual Data Is Saved")
                 id = Individual.objects.get(id=idata.id)
-                data = Contact.objects.create(name=request.data['name'],title=request.data['title'],company_name=var,
-                individual=id,tax_id=request.data['tax_id'],address_street_1=request.data['address_street_1'],address_street_2=request.data['address_street_2'],
-                city=request.data['city'],state=request.data['state'],country=request.data['country'],zip_code=request.data['zip_code'],
-                job_position=request.data['job_position'],phone=request.data['phone'],mobile=request.data['mobile'],email=request.data['email'],
-                website=request.data['website'],tags=request.data['tags'],individual_image=request.data['image'],internal_notes=request.data['internal_notes'],
-                sales_person=request.data['sales_person'],refrence=request.data['refrence'])
+                data = Contact.objects.create(name=request.data['name'],company_name=var,
+                individual=id,
+                mobile=request.data['mobile'],email=request.data['email'],
+          
+               )
                 data.save()
                 print("Contact Data Is Saved")
                 return Response(individual.data,status=status.HTTP_201_CREATED) 
@@ -41,11 +40,10 @@ class SaveContact(APIView):
                 cdata = company.save()
                 print("Company Data is Saved")
                 cid = Company.objects.get(id=cdata.id)
-                condata = Contact.objects.create(cmp_title=request.data['name'],company=cid,cmp_tax_id=request.data['tax_id'],cmp_address_street_1=request.data['address_street_1'],
-                cmp_address_street_2=request.data['address_street_2'],cmp_city=request.data['city'],cmp_state=request.data['state'],cmp_country=request.data['country'],
-                cmp_zip_code=request.data['zip_code'],cmp_phone=request.data['phone'],cmp_mobile=request.data['mobile'],cmp_email=request.data['email'],cmp_website=request.data['website'],
-                cmp_tags=request.data['tags'],company_image=request.data['image'],cmp_internal_notes=request.data['internal_notes'],cmp_sales_person=request.data['sales_person'],
-                cmp_refrence=request.data['refrence'],cmp_industry=request.data['industry'])
+                condata = Contact.objects.create(cmp_title=request.data['name'],company=cid,
+         cmp_mobile=request.data['mobile'],cmp_email=request.data['email']
+              
+               )
                 condata.save()
                 print("Contact Data is Saved")
                 return Response(company.data,status=status.HTTP_201_CREATED)
@@ -191,6 +189,7 @@ class DeleteContact(APIView):
 
 class SavePipeline(APIView):
     def post(self,request):
+       
         pipeline = PipelineSerializers(data=request.data)
         if pipeline.is_valid():
             #pipeline.save()
