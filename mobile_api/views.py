@@ -10,7 +10,7 @@ import json
 
 
 class SaveContact(APIView):
-    
+
     def post(self,request):
         if request.data['user_type'] == "individual":
             print(request.data['user_type'])
@@ -23,8 +23,7 @@ class SaveContact(APIView):
                 print("Indivisual Data Is Saved")
                 id = Individual.objects.get(id=idata.id)
                 data = Contact.objects.create(name=request.data['name'],company_name=var,
-                individual=id,
-                mobile=request.data['mobile'],email=request.data['email'],
+                individual=id,mobile=request.data['mobile'],email=request.data['email'],
           
                )
                 data.save()
@@ -41,9 +40,7 @@ class SaveContact(APIView):
                 print("Company Data is Saved")
                 cid = Company.objects.get(id=cdata.id)
                 condata = Contact.objects.create(cmp_title=request.data['name'],company=cid,
-         cmp_mobile=request.data['mobile'],cmp_email=request.data['email']
-              
-               )
+                cmp_mobile=request.data['mobile'],cmp_email=request.data['email'])
                 condata.save()
                 print("Contact Data is Saved")
                 return Response(company.data,status=status.HTTP_201_CREATED)

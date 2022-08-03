@@ -23,15 +23,14 @@ a{
     <div class="row">
 
         {% for i in data %}
+    
         <a href="{% url 'contact_edit' %}?id={{i.id}}">
             <div class="card mt-2 m-2" style="width: 22rem;display: flex; flex-direction: row;">
                 <div>
-                        {% if i.individual_image %}
-                        <img src="{{i.individual_image.url}}" alt="Card image cap" height="100" width="100" style="padding: 5px;">
-                        {% endif %}
-
-                        {% if i.company_image %}
-                        <img src="{{i.company_image.url}}" alt="Card image cap" height="100" width="100" style="padding:5px;"> 
+                        {% if i.cmp_title == none %}
+                        <img src="/media/{{i.individual_image}}" alt="Card image cap" height="100" width="100" style="padding: 5px;">
+                        {% else %}
+                        <img src="/media/{{i.company_image}}" alt="Card image cap" height="100" width="100" style="padding:5px;"> 
                         {% endif %}
 
                 </div>

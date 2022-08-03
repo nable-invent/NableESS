@@ -46,6 +46,7 @@ def user_register(request):
 
             global EMAIL
             EMAIL = email
+            # request.session["email"] = cform
             send_mail()
             return render(request,"otp_validation.html")
         else:
@@ -57,6 +58,8 @@ def user_register(request):
 def validate_otp(request):
     otp = int(request.POST.get('otp'))
     if EMAIL_OTP == otp:
+        email = request.session["email"]
+        print("Email",email)
         return redirect('index')
     else:
         return render(request,"otp_validation.html",{"error":"Invalid OTP! Please Enter Valid OTP"})

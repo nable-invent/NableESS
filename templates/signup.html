@@ -112,7 +112,7 @@
                     
                     <div style="padding-top: 1rem;"> 
                         <a href="{% url 'index' %}">
-                        <h4> Back To Login </h4>
+                        <h4> Click Here To Login </h4>
                         </a>
                     </div>
                 </div>
@@ -129,6 +129,25 @@
 
     <!-- Main JS-->
     <script src="/static/signup/js/global.js"></script>
+
+    <script>
+
+        function validatePassword()
+        {
+            var password = document.getElementById("id_password1"),confirm_password = document.getElementById("id_password2");
+            if(password.value != confirm_password.value)
+            {
+                id_password2.setCustomValidity("Invalid Confirm Password");
+            }
+            else
+            {
+                id_password2.setCustomValidity('');
+            }
+        }
+        id_password1.onchange = validatePassword;
+        id_password2.onkeyup = validatePassword;
+
+    </script>
 
 </body>
 

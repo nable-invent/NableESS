@@ -123,7 +123,7 @@
         background: #fafafa;
         box-sizing: border-box;
     }
-    p{
+    .p{
         background: white;
         border: 1px solid black;
         padding: 5px;
@@ -135,8 +135,9 @@
         color: orange;
     }
     a:link {
-  text-decoration: none;
-}
+    text-decoration: none;
+    color: black;
+    }
 
 a{
     color: black;
@@ -164,11 +165,12 @@ a{
     <div class="col-md-12">
         <div class="row">
             <div class="choice" id="New" ondrop="statusChange(id)">  
-                {% for i in data %} 
-                    <a href="{% url 'pipeline_edit' %}?id={{i.id}}"> 
-                        {%  if i.status == "New" %}    
-                    <p draggable="true" id="{{i.id}}" ondragend="showValue(id)">
-                        <input type="hidden" id="new" value="{{i.id}}">
+                {% for i in data %}  
+                    {%  if i.status == "New" %}    
+                    <div class="p" draggable="true" id="{{i.id}}" ondragend="showValue(id)">
+                    <a href="{% url 'pipeline_edit' %}?id={{i.id}}">
+                       <div>   
+                        <!-- <input type="hidden" id="new" value="{{i.id}}"> -->
                         <span> <strong>{{i.opportunity}}</strong></span><br>
                         <span>{{i.expected_revenue}}</span><br>
                         <span>{{i.contact}}</span> <br>
@@ -190,10 +192,15 @@ a{
                                 <span class="fa fa-star checked"> </span>
                                 <span class="fa fa-star checked"> </span> 
                             </span> <br> 
-                        {% endif %}    
-                    </p>
+                        {% endif %}
+                       </div>
+                    </a> 
+                        <a href="">  
+                        <span style="padding-left: 11rem;" class="fa fa-clock"><button>1</button></span>
+                        </a>   
+                    </div> <br>
                     {%  endif %}
-                </a> 
+               
                 {% endfor %}
             </div>
             
@@ -201,8 +208,8 @@ a{
                 {% for i in data %} 
                     <a href="{% url 'pipeline_edit' %}?id={{i.id}}"> 
                         {%  if i.status == "Qualified" %}    
-                    <p draggable="true" id="{{i.id}}" ondragend="showValue(id)">
-                        <input type="hidden" id="qualified" value="{{i.id}}">
+                    <div class="p" draggable="true" id="{{i.id}}" ondragend="showValue(id)">
+                        <!-- <input type="hidden" id="qualified" value="{{i.id}}"> -->
                         <span> <strong>{{i.opportunity}}</strong></span><br>
                         <span>{{i.expected_revenue}}</span><br>
                         <span>{{i.contact}}</span> <br>
@@ -225,17 +232,18 @@ a{
                                 <span class="fa fa-star checked"> </span> 
                             </span> <br> 
                         {% endif %}    
-                    </p>
+                        </div> <br>
                     {%  endif %}
                 </a> 
                 {% endfor %}
             </div>
+            
             <div class="choice" id="Propostion" ondrop="statusChange(id)">
                 {% for i in data %} 
                     <a href="{% url 'pipeline_edit' %}?id={{i.id}}"> 
                         {%  if i.status == "Propostion" %}    
-                    <p draggable="true" id="{{i.id}}" ondragend="showValue(id)">
-                        <input type="hidden" id="propostion" value="{{i.id}}">
+                    <div class="p" draggable="true" id="{{i.id}}" ondragend="showValue(id)">
+                        <!-- <input type="hidden" id="propostion" value="{{i.id}}"> -->
                         <span> <strong>{{i.opportunity}}</strong></span><br>
                         <span>{{i.expected_revenue}}</span><br>
                         <span>{{i.contact}}</span> <br>
@@ -258,7 +266,7 @@ a{
                                 <span class="fa fa-star checked"> </span> 
                             </span> <br> 
                         {% endif %}    
-                    </p>
+                        </div> <br>
                     {%  endif %}
                 </a> 
                 {% endfor %}
@@ -267,8 +275,8 @@ a{
                 {% for i in data %} 
                     <a href="{% url 'pipeline_edit' %}?id={{i.id}}"> 
                         {%  if i.status == "Won" %}    
-                    <p draggable="true" id="{{i.id}}" ondragend="showValue(id)">
-                        <input type="hidden" id="won" value="{{i.id}}">
+                    <div class="p" draggable="true" id="{{i.id}}" ondragend="showValue(id)">
+                        <!-- <input type="hidden" id="won" value="{{i.id}}"> -->
                         <span> <strong>{{i.opportunity}}</strong></span><br>
                         <span>{{i.expected_revenue}}</span><br>
                         <span>{{i.contact}}</span> <br>
@@ -291,7 +299,7 @@ a{
                                 <span class="fa fa-star checked"> </span> 
                             </span> <br> 
                         {% endif %}    
-                    </p>
+                        </div> <br>
                     {%  endif %}
                 </a> 
                 {% endfor %}
@@ -302,7 +310,7 @@ a{
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    var p = document.getElementsByTagName('p');
+    var p = document.getElementsByClassName('p');
     var choice = document.getElementsByClassName('choice');
     var dragItem = null;
     

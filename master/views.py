@@ -61,7 +61,7 @@ def save_contact(request):
                         print("data is saved")
                         id = Individual.objects.get(id=idata.id)
                         cdata = Contact.objects.create(name=name,title=title,company_name=var,individual=id,tax_id=tax_id,address_street_1=street1,address_street_2=street2,city=city,state=state,
-                        country=country,zip_code=zip,job_position=job_position,phone=phone,mobile=mobile,email=email,website=website,tags=tags,individual_image=image,internal_notes=notes,sales_person=sales,refrence=reference)
+                        country=country,zip_code=zip,job_position=job_position,phone=phone,mobile=mobile,email=email,website=website,tags=tags,individual_image=image,company_image="",internal_notes=notes,sales_person=sales,refrence=reference)
                         cdata.save()
                         print("contact data is saved")
                     except ValueError:
@@ -93,7 +93,7 @@ def save_contact(request):
 
                     cid = Company.objects.get(id=cdata.id)
                     Contact(cmp_title=name,company=cid,cmp_tax_id=tax_id,cmp_address_street_1=street1,cmp_address_street_2=street2,cmp_city=city,cmp_state=state,cmp_country=country,
-                    cmp_zip_code=zip,cmp_phone=phone,cmp_mobile=mobile,cmp_email=email,cmp_website=website,cmp_tags=tags,company_image=image,cmp_internal_notes=notes,cmp_sales_person=sales,cmp_refrence=reference,cmp_industry=industry).save()
+                    cmp_zip_code=zip,cmp_phone=phone,cmp_mobile=mobile,cmp_email=email,cmp_website=website,cmp_tags=tags,company_image=image,individual_image="",cmp_internal_notes=notes,cmp_sales_person=sales,cmp_refrence=reference,cmp_industry=industry).save()
                 except ValueError:
                     return render(request, 'contact.html',{"error":"Phone and Mobile Number Can't Empty","data1":Company.objects.all()})
             else:
