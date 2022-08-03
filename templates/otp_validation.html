@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Nable::CRM::SignUp</title>
+
+    <!-- Icons font CSS-->
+    <link href="/static/signup/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/static/signup/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="/static/signup/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/static/signup/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/login/css/main.css"> 
+    <!-- Main CSS-->
+    <link href="/static/signup/css/main.css" rel="stylesheet" media="all">
+    <style>
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="background:white;">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4" style="background: -webkit-linear-gradient(top, #75f9ff, #efa724);">
+                <div class="card-body">
+                    {% if error %}
+                    <h5 style="text-align:center; color:red">{{error}}</h5><br>
+                    {% endif %}
+
+                    <h2 class="title" style="text-align: center;">Validate OTP</h2>
+                    <form action="{% url 'validate_otp' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row row-space" style="padding-left: 10rem;">
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <input class="input--style-4" type="text" name="otp" placeholder="Enter OTP" required>
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <div class="p-t-15 container-login100-form-btn" style="align-content: center; display: inline-flex;">
+                            <button class="login100-form-btn" type="submit">Submit</button>
+                        </div>
+                    
+                    <div style="padding-top: 1rem;"> 
+                        <a href="{% url 'resend_otp' %}">
+                        <h4 style="float: right;color:red;"> Resend OTP </h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="/static/signup/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/static/signup/vendor/select2/select2.min.js"></script>
+    <script src="/static/signup/vendor/datepicker/moment.min.js"></script>
+    <script src="/static/signup/vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="/static/signup/js/global.js"></script>
+
+</body>
+
+</html>

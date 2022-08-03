@@ -3,6 +3,9 @@
 {% block content %}
 
 <style>
+     button[data-id] {
+        display: none;
+     }
     .rating {
         width: 300px;
         margin: 0 auto 1em;
@@ -83,7 +86,6 @@
                                         <h2 class="card-inside-title"> Organization/Contact </h2>
                                         <div class="form-line" id="company" style="display:inline-flex">
                                             <div class="form-group mb-0">
-
                                                 <select name='contact_id' class="form-control" id="comp">
                                                     <option value="Select">Select</option>
                                                     {% for i in data %}
@@ -101,6 +103,7 @@
                                         <div class="form-line" style="display:inline-flex">
                                             <input type="text" class="form-control" placeholder="e.g. Product Pricing"
                                                 id="name" name="name" />
+                                            <input type="hidden" class="form-control" id="status" value="{{status}}" name="status" />    
                                         </div>
                                         <h2 class="card-inside-title"> Email </h2>
                                         <div class="form-line" style="display:inline-flex">

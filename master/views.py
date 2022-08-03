@@ -121,7 +121,8 @@ def get_comp_details(request):
 
 
 def pipeline_add(request):
-    return render(request,'pipeline_add.html',{"data":Contact.objects.all()})
+    status = request.GET.get('status')
+    return render(request,'pipeline_add.html',{"data":Contact.objects.all(),"status":status})
 
 
 def save_pipeline(request):
@@ -131,16 +132,17 @@ def save_pipeline(request):
     phone = request.POST.get('phone')
     revenue = request.POST.get('revenue')
     rating = request.POST.get('rating3')
-    print(contact_id,opportunity,email,phone,revenue,rating)
+    status = request.POST.get('status')
+    print(contact_id,opportunity,email,phone,revenue,rating,status)
     if contact_id == 'Select':
         return render(request,'pipeline_add.html',{"error":"Please select Organization/Contact","data":Contact.objects.all()})
     else: 
         try:
             c_id = Contact.objects.get(id=contact_id)
-            Pipeline(contact=c_id,opportunity=opportunity,email=email,phone=phone,expected_revenue=revenue,rating=rating).save()
+            Pipeline(contact=c_id,opportunity=opportunity,email=email,phone=phone,expected_revenue=revenue,rating=rating,status=status).save()
         except ValueError:
             return render(request,"pipeline_add.html",{"error":"Invalid Expected Revenue","data":Contact.objects.all()})
-    return redirect('pipeline')
+        return redirect('pipeline')
 
 
 def get_contact_details(request):

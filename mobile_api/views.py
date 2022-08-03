@@ -163,11 +163,27 @@ class UpdateContact(APIView):
 
 class DeleteContact(APIView):
     def delete(self,request,id):
-        res = Contact.objects.filter(id=id).delete()
-        if res[0]!=0:
-            message = {"message":"Contact Is Deleted"}
-            return Response(message,status=status.HTTP_204_NO_CONTENT)
-        else:
+        try:
+            data = Contact.objects.get(id=id)
+            cdata = data.cmp_title
+            if cdata:
+                print("Company")
+                cid = data.company.id
+                Company.objects.filter(id=cid).delete()
+                print("Company Delete")
+                Contact.objects.filter(id=id).delete()
+                print("Contact Delete")
+                message = {"message":"Contact Is Deleted"}
+                return Response(message,status=status.HTTP_204_NO_CONTENT)
+            else:
+                print("Indivisual")
+                iid = data.individual.id
+                Individual.objects.filter(id=iid).delete()
+                print("Individual Delete")
+                Contact.objects.filter(id=id).delete()
+                message = {"message":"Contact Is Deleted"}
+                return Response(message,status=status.HTTP_204_NO_CONTENT)
+        except:
             message = {"error":"Invalid Contact"}
             return Response(message,status=status.HTTP_404_NOT_FOUND)
 

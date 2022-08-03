@@ -145,16 +145,16 @@ a{
 
 <h4>Pipeline</h4>
 <div class="m-2">
-    <a href="{% url 'pipeline_add' %}"><button class="btn btn-primary">Create</button></a>
+    <a href="{% url 'pipeline_add' %}?status=New"><button class="btn btn-primary">Create</button></a>
 </div>
 
 <div class="row" style="padding-left: 1rem;">
     <div class="col-md-12">
         <div class="row">
-            <div class="choice1 pstyle">New <a href="{% url 'pipeline_add' %}"> <span class="sstyle">+</span> </a> </div>
-            <div class="choice1 pstyle">Qualified <a href="{% url 'pipeline_add' %}"> <span class="sstyle">+</span></a></div>
-            <div class="choice1 pstyle">Proposition <a href="{% url 'pipeline_add' %}"><span class="sstyle">+</span></a></div>
-            <div class="choice1 pstyle">Won <a href="{% url 'pipeline_add' %}"><span class="sstyle">+</span></a></div>
+            <div class="choice1 pstyle">New <a href="{% url 'pipeline_add' %}?status=New"> <span class="sstyle">+</span> </a> </div>
+            <div class="choice1 pstyle">Qualified <a href="{% url 'pipeline_add' %}?status=Qualified"> <span class="sstyle">+</span></a></div>
+            <div class="choice1 pstyle">Proposition <a href="{% url 'pipeline_add' %}?status=Propostion"><span class="sstyle">+</span></a></div>
+            <div class="choice1 pstyle">Won <a href="{% url 'pipeline_add' %}?status=Won"><span class="sstyle">+</span></a></div>
         </div>
     </div>
    

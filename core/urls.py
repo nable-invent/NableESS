@@ -29,6 +29,10 @@ urlpatterns = [
     path('index', index, name="index"),
     path('user_signup',user_signup,name="user_signup"),
     path('user_register',user_register,name="user_register"),
+    path('user_login',user_login,name="user_login"),
+    path('resend_otp',resend_otp,name="resend_otp"),
+    path('validate_otp',validate_otp,name="validate_otp"),
+
     path('', contact_list, name="contact_list"),
     path('contact_edit', contact_edit, name="contact_edit"),
     path('contact', contact, name="contact"),

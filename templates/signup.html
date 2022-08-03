@@ -38,21 +38,23 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4" style="background: -webkit-linear-gradient(top, #75f9ff, #efa724);">
                 <div class="card-body">
+                    {% if error %}
+                    <h5 style="text-align:center; color:darkorchid">{{error}}</h5>
+                    {% endif %}
                     <h2 class="title">Registration Form</h2>
-
                     <form action="{% url 'user_register' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name" pattern="[a-zA-Z]+" title="Only Letters is Allow" required>
+                                    {{form.first_name}}
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name" title="Only Letters is Allow" pattern="[a-zA-Z]+">
+                                    {{form.last_name}}
                                 </div>
                             </div>
                         </div>
@@ -60,46 +62,54 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email" required>
+                                    {{form.email}}
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="tel" name="phone" pattern="[0-9]{10}" title="Please Enter Valid Mobile Number">
+                                    {{form.phone_number}}
+                                    <!-- <input class="input--style-4" type="tel" name="phone_number" pattern="[0-9]{10}" title="Please Enter Valid Mobile Number"> -->
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Password</label>
-                                    <input class="input--style-4" type="password" name="password" required pattern=".{8,16}" title="Password Length Minimum 8 and Maximum 16">
+                                    {{form.password1}}
+                                    <!-- <input class="input--style-4" type="password" name="password1" required pattern=".{8,16}" title="Password Length Minimum 8 and Maximum 16"> -->
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Confirm Password</label>
-                                    <input class="input--style-4" type="password" name="cpassword" required pattern=".{8,16}"  title="Password Length Minimum 8 and Maximum 16">
+                                    {{form.password2}}
+                                    <!-- <input class="input--style-4" type="password" name="password2" required pattern=".{8,16}"  title="Password Length Minimum 8 and Maximum 16"> -->
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Profile Image</label>
-                                    <input class="input--style-4" type="file" name="image" accept="image/png,image/jpeg,image/jpg">
+                                    {{form.profile_image}}
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Address</label>
-                                    <textarea class="input--style-4" rows="1" name="address"> </textarea>
-                                    <!-- <input class="input--style-4" type="password" name="cpassword"> -->
+                                    {{form.address}}
                                 </div>
                             </div>
                         </div>
+                     
                         <div class="p-t-15 container-login100-form-btn" style="align-content: center; display: inline-flex;">
                             <button class="login100-form-btn" type="submit">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="login100-form-btn" type="cancel">Clear</button> 
-                        </div>
                     </form>
+                            <div> 
+                            <a href="{% url 'user_signup' %}"> 
+                            <button class="login100-form-btn" type="button">Clear</button>
+                            </a> 
+                        </div>
+                        </div>
+                    
                     <div style="padding-top: 1rem;"> 
                         <a href="{% url 'index' %}">
                         <h4> Back To Login </h4>

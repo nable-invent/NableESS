@@ -53,3 +53,19 @@ def save_contact(request):
 #         "form":form,
 #     }
 #     return render(request, 'contactt.html', context)
+
+
+# first_name= request.POST.get('first_name')
+        # last_name= request.POST.get('last_name')
+        # email= request.POST.get('email')
+        # phone_number= request.POST.get('phone')
+        # password1= request.POST.get('password1')
+        # password2= request.POST.get('password2')
+        # address= request.POST.get('address')
+        # profile_image= request.FILES.get('image')
+        # print(first_name,last_name,email,phone_number,password1,password2,address,profile_image)
+        # data = CustomUser.objects.create(first_name=first_name,last_name=last_name,email=email,phone_number=phone_number,
+        # password1=password1,password2=password2,address=address,profile_image=profile_image)
+        # data.save()
+        # except:
+            # return render(request, "signup.html",{"error":"Invalid Data"})
